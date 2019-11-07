@@ -1,0 +1,91 @@
+server:
+  port: 8010
+  max-http-header-size: 10000000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: platformcurrency
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 0
+    host: localhost
+    password: 123456
+    port: 6379
+    timeout: 30000
+    pool:
+      max-idle: 50000
+      min-idle: 5000
+      max-active: 30000
+      max-wait : 2000
+  data:
+    mongodb:
+      custom:
+        hosts:
+        - localhost
+        ports:
+        - 27017
+        username: root
+        password: 123456
+        database: admin
+        connections-per-host: 20
+        min-connections-per-host: 20
+logging:
+  config: classpath:conf/log4j2-d.xml
+  level:
+    net.cyweb.mapper:debug
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+#druid:
+#  url: jdbc:mysql://222.185.192.230:30001/funcoin?useUnicode=true&amp;characterEncoding=utf-8
+#  driver: com.mysql.jdbc.Driver
+#  username: funcoin
+#  password: Funcoin123!@#
+#  initial-size: 5
+#  max-active: 20
+#  test-on-borrow: true
+druid:
+  url: jdbc:mysql://127.0.0.1:3306/funcoin?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: root
+  password: 123456
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+#druid:
+#  url: jdbc:mysql://rm-j6co87un3kcioih9r4o.mysql.rds.aliyuncs.com/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+#  driver: com.mysql.jdbc.Driver
+#  username: funcoin
+#  password: '!q2w3e4r5tfkszlxrabc123456'
+#  initial-size: 5
+#  max-active: 20
+#  test-on-borrow: true
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    port: 8001
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+feign:
+  hystrix:
+    enabled: false
+myProps:
+  notice:
+    url: http://test.server.funcoin.co/trade/notify

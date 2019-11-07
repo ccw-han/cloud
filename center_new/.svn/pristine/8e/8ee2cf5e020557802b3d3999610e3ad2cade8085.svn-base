@@ -1,0 +1,8 @@
+druid.url=jdbc:mysql://192.168.31.14:3306/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+druid.driver-class=com.mysql.jdbc.Driver
+druid.username=root
+druid.password=wang628625
+druid.initial-size=1
+druid.min-idle=1
+druid.max-active=20
+druid.test-on-borrow=true

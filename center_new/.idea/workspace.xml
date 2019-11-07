@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="05735222-fa39-417d-93c4-630e607ca175" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/coin-services/coin-ifc/coin-server-ifc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/coin-services/coin-ifc/coin-server-ifc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coin.md" beforeDir="false" afterPath="$PROJECT_DIR$/coin.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-service/common/common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common-service/common/common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-service/common/src/main/java/cyweb/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-service/common/src/main/java/cyweb/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-service/common/src/main/java/cyweb/utils/DecimalUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-service/common/src/main/java/cyweb/utils/DecimalUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-service/config-server/config-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common-service/config-server/config-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/controller/FontController.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/controller/FontController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/javaapi.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/javaapi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-services/javaapi/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/front-services/javaapi/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-services/javaapi/src/main/resources/conf/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/front-services/javaapi/src/main/resources/conf/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-services/javaapi/src/test/java/net/cyweb/TradeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/front-services/javaapi/src/test/java/net/cyweb/TradeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-services/klinemongodb/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/order-services/klinemongodb/src/main/resources/application-dev.yml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1SEGhTezVGpbGUQ05q7f6HMkFR9" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="YangOrdersMapper&#9;FILE&#9;file://D:/center_new/front-services/javaapi/src/main/resources/mapper/YangOrdersMapper.xml" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../boot/demo" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/service/ServiceInteface" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.cyweb.mapper" />
+      <recent name="net.cyweb.exception" />
+      <recent name="net.cyweb.config.custom" />
+      <recent name="net.cyweb.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\center_new\front-services\javaapi\src\main\resources\mapper" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.javaapi">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cyweb.utils.DateUtils" />
+      <module name="common" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cyweb.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DecimalUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cyweb.utils.DecimalUtils" />
+      <module name="common" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cyweb.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testTime" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.cyweb.controller.testTime" />
+      <module name="javaapi" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.cyweb.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TradeTest.testSql" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="javaapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.cyweb.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.cyweb" />
+      <option name="MAIN_CLASS_NAME" value="net.cyweb.TradeTest" />
+      <option name="METHOD_NAME" value="testSql" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CoinApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="coin-server-bcc" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.CoinApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="eureka" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.EurekaApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderCancelMod" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="order-cancel-mod" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.OrderCancelMod" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderCreateMod" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="order-create-mod" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.OrderCreateMod" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderTradeMod" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="order-trade-mod" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.OrderTradeMod" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Rebot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="notice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.Rebot" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="user-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.UserApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="javaapi" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="javaapi" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.javaapi" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="klinemongodb" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="klinemongodb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.klinemongodb" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="platFormCurrencyServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="platformcurrency" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.cyweb.platFormCurrencyServer" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.testTime" />
+      <item itemvalue="Application.DateUtils" />
+      <item itemvalue="Application.DecimalUtils" />
+      <item itemvalue="JUnit.TradeTest.testSql" />
+      <item itemvalue="Spring Boot.CoinApp" />
+      <item itemvalue="Spring Boot.OrderTradeMod" />
+      <item itemvalue="Spring Boot.javaapi" />
+      <item itemvalue="Spring Boot.OrderCreateMod" />
+      <item itemvalue="Spring Boot.klinemongodb" />
+      <item itemvalue="Spring Boot.OrderCancelMod" />
+      <item itemvalue="Spring Boot.platFormCurrencyServer" />
+      <item itemvalue="Spring Boot.UserApp" />
+      <item itemvalue="Spring Boot.EurekaApp" />
+      <item itemvalue="Spring Boot.Rebot" />
+      <item itemvalue="Spring Boot.App" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DecimalUtils" />
+        <item itemvalue="Application.DateUtils" />
+        <item itemvalue="JUnit.TradeTest.testSql" />
+        <item itemvalue="Application.testTime" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="05735222-fa39-417d-93c4-630e607ca175" name="Default" comment="" />
+      <created>1570158641225</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1570158641225</updated>
+      <workItem from="1570158646066" duration="1029000" />
+      <workItem from="1570164646812" duration="7670000" />
+      <workItem from="1570504288336" duration="3490000" />
+      <workItem from="1570588942922" duration="1939000" />
+      <workItem from="1570781314874" duration="599000" />
+      <workItem from="1571020030034" duration="1760000" />
+      <workItem from="1571040261220" duration="599000" />
+      <workItem from="1571046053750" duration="96000" />
+      <workItem from="1571103780245" duration="1715000" />
+      <workItem from="1571105516708" duration="1794000" />
+      <workItem from="1571107332052" duration="1793000" />
+      <workItem from="1571109837735" duration="1071000" />
+      <workItem from="1571115416134" duration="1273000" />
+      <workItem from="1571116754036" duration="1818000" />
+      <workItem from="1571119067699" duration="26000" />
+      <workItem from="1571121474919" duration="1633000" />
+      <workItem from="1571123124111" duration="33000" />
+      <workItem from="1571123170379" duration="83000" />
+      <workItem from="1571123266380" duration="8188000" />
+      <workItem from="1571190223555" duration="15096000" />
+      <workItem from="1571214404234" duration="4394000" />
+      <workItem from="1571278685505" duration="13898000" />
+      <workItem from="1572666591345" duration="155000" />
+      <workItem from="1572666812769" duration="29000" />
+      <workItem from="1572668080627" duration="10915000" />
+      <workItem from="1572734967837" duration="1802000" />
+      <workItem from="1572764244247" duration="8056000" />
+      <workItem from="1572820670513" duration="4283000" />
+      <workItem from="1572932081129" duration="597000" />
+      <workItem from="1572939431362" duration="1842000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/service/YangOrderService.java</url>
+          <line>2707</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/controller/FontController.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/config/bigcustom/ScheduledTask.java</url>
+          <line>145</line>
+          <properties class="net.cyweb.config.bigcustom.ScheduledTask">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="allPrice10" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

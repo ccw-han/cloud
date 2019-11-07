@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+security:
+   basic:
+     enabled: false
+   headers:
+     xss: true

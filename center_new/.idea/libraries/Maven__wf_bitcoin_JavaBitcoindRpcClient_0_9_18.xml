@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: wf.bitcoin:JavaBitcoindRpcClient:0.9.18">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/wf/bitcoin/JavaBitcoindRpcClient/0.9.18/JavaBitcoindRpcClient-0.9.18.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/wf/bitcoin/JavaBitcoindRpcClient/0.9.18/JavaBitcoindRpcClient-0.9.18-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/wf/bitcoin/JavaBitcoindRpcClient/0.9.18/JavaBitcoindRpcClient-0.9.18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,70 @@
+server:
+  port: 8007
+  max-http-header-size: 10000000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: robot-server
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 0
+    host: r-j6cd1a2332045ea4.redis.rds.aliyuncs.com
+    password: Wang628625
+    port: 6379
+    timeout: 3000
+    pool:
+      max-idle: 500
+      min-idle: 50
+      max-active: 2000
+      max-wait : 1000
+  data:
+    mongodb:
+      uri : mongodb://funcoin:123456@mongo:27017/funcoin
+#       host: 192.168.31.126
+#       port: 27017
+#       username: root
+#       password: 628625
+#       database: local
+#       authenticationDatabase: local
+logging:
+  config: classpath:conf/log4j2-d.xml
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+druid:
+  url: jdbc:mysql://funcoin-local.mysql.rds.aliyuncs.com/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: funcoin
+  password: '!q2w3e4r5tfkszlxrabc123456'
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+eureka:
+  instance:
+    preferIpAddress: true
+    ip-address: 47.52.197.24
+    port: 8007
+  client:
+    serviceUrl:
+      defaultZone: http://47.52.233.53:8001/eureka/
+feign:
+  hystrix:
+    enabled: false
+myProps:
+  notice:
+    url: http://server.funcoin.co/trade/notify

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangC2CGuaMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangC2CGua">
+        <result column="currency_id" property="currencyId" jdbcType="INTEGER"/>
+        <result column="min_fund" property="minFund" jdbcType="INTEGER"/>
+        <result column="max_fund" property="maxFund" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="DECIMAL"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getC2CGuaByCurrencyId" resultMap="BaseResultMap">
+        SELECT
+        min_fund,max_fund,num,price,type,remark
+        FROM
+        yang_c2c_gua
+        <where>
+            <if test="currencyId != null and currencyId !=''">
+                currency_id=#{currencyId}
+            </if>
+            <if test="memberId != null and memberId !=''">
+                AND member_id=#{memberId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getC2CGuaByMemberId" resultType="java.util.Map">
+        SELECT
+        a.min_money minMoney,a.max_money maxMoney,a.num num,a.price price ,a.type type,a.nick_name nickName,
+        b.currency_mark currencyMark,a.currency_id currencyId,a.status status
+        FROM
+        yang_c2c_gua a
+        LEFT JOIN yang_currency b
+        ON a.currency_id = b.currency_id
+        WHERE
+        a.member_id=#{memberId}
+        ORDER BY a.type='buy' ASC, b.currency_mark ASC
+    </select>
+
+    <select id="findMembersOrdersByAcceptances" resultType="java.util.Map">
+        SELECT
+        a.trade_no tradeNo,a.num num,a.price price,
+        c.currency_mark currencyMark,a.currency_id currencyId,
+        a.buy_money buyMoney,a.add_time addTime,
+        d.name memberName
+        FROM
+        yang_c2c_orders a
+        LEFT JOIN yang_c2c_gua b
+        ON a.gua_id = b.id
+        LEFT JOIN yang_currency c
+        ON a.currency_id = c.currency_id
+        LEFT JOIN yang_member d
+        ON a.member_id = d.member_id
+        WHERE
+        <where>
+            <if test="memberId != null and memberId != ''">
+                and b.member_id=#{memberId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.buy_status =#{type}
+            </if>
+        </where>
+        ORDER BY a.type='buy' ASC, c.currency_mark ASC
+    </select>
+
+    <select id="findMembersOrdersByMemberId" resultType="java.util.Map">
+        SELECT
+        a.trade_no tradeNo,a.num num,a.price price,
+        c.currency_mark currencyMark,a.currency_id currencyId,
+        a.buy_money buyMoney,a.add_time addTime,
+        d.name memberName
+        FROM
+        yang_c2c_orders a
+        LEFT JOIN yang_c2c_gua b
+        ON a.gua_id = b.id
+        LEFT JOIN yang_currency c
+        ON a.currency_id = c.currency_id
+        LEFT JOIN yang_member d
+        ON a.member_id = d.member_id
+        WHERE
+        <where>
+            <if test="memberId != null and memberId != ''">
+                and a.member_id=#{memberId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.buy_status =#{type}
+            </if>
+        </where>
+        ORDER BY a.type='buy' ASC, c.currency_mark ASC
+    </select>
+
+    <update id="updateStatusById" parameterType="java.util.Map">
+      UPDATE yang_c2c_gua
+      SET status = #{status}
+      WHERE id = #{id} AND type = #{type}
+    </update>
+
+</mapper>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTrade" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_id" property="tradeId" jdbcType="INTEGER" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="yangTradeColumns">
+    	a.trade_id AS "tradeId",
+		a.trade_no AS "tradeNo",
+		a.member_id AS "memberId",
+		a.currency_id AS "currencyId",
+		a.currency_trade_id AS "currencyTradeId",
+		a.price AS "price",
+		a.num AS "num",
+		a.money AS "money",
+		a.fee AS "fee",
+		a.type AS "type",
+		a.add_time AS "addTime",
+		a.status AS "status",
+		a.show AS "show"
+  </sql>
+
+  <select id="queryLastDayInfo" resultType="java.util.Map" parameterType="java.util.Map">
+    select
+    avg(price) as avgPrice,
+    count(1) as total
+    from yang_trade
+    <where>
+      <if test="currencyId!='' and currencyId!=null">
+          and currency_id=#{currencyId}
+      </if>
+      <if test="startTime!='' and startTime!=null">
+          and add_time &gt;=#{startTime}
+      </if>
+      <if test="endTime!='' and endTime!=null">
+          and add_time &lt;=#{endTime}
+      </if>
+
+    </where>
+  </select>
+
+  <select id="findLastDayTradeInfoForMongodb" parameterType="java.util.Map" resultType="java.util.Map">
+      select
+        yt.num as ftnum,yt.member_id as memberId
+      from yang_ft_activity yt
+      where yt.member_id in
+      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                  #{item._id}
+       </foreach>
+  </select>
+
+
+  <select id="findLastDayTradeInfo" parameterType="java.util.Map" resultType="java.util.Map">
+    select
+    a.num ,a.price,a.type,a.member_id as memberId,yt.num as ftnum,a.trade_id as tradeId
+    from
+    yang_ft_activity  yt
+    inner join
+    (
+    select
+    sum(ya.num) as num,ya.type ,ya.member_id,ya.trade_id,ya.price
+    from yang_trade ya
+    <where>
+      <if test="memberId!='' and memberId!=null">
+        and member_id &lt;&gt;#{memberId}
+      </if>
+    <if test="startTime!=null and startTime != ''">
+    and ya.add_time &gt;= #{startTime}
+    </if>
+    <if test="endTime!=null and endTime != ''">
+      and ya.add_time &lt;= #{endTime}
+    </if>
+      <if test="currencyId!=null and currencyId!=''">
+      and ya.currency_id=#{currencyId}
+      </if>
+    </where>
+    group by  member_id
+    ) a
+    on yt.member_id=a.member_id and yt.num>0
+    where 1=1
+  </select>
+
+
+  <select id="findList" parameterType="java.util.Map" resultType="java.util.Map">
+    select
+    yt.num,yt.type,yt.price,yt.trade_id as tradeId
+    from yang_trade yt
+    <where>
+      <if test="startTime!=null and startTime != ''">
+        and yt.add_time &gt;= #{startTime}
+      </if>
+      <if test="endTime!=null and endTime != ''">
+        and yt.add_time &lt;= #{endTime}
+      </if>
+      <if test="memberId!=null and memberId != ''">
+        and yt.member_id=#{memberId}
+      </if>
+      <if test="currencyId!=null and currencyId!=''">
+        and yt.currency_id=#{currencyId}
+      </if>
+    </where>
+  </select>
+
+  <select id="findRobotList" parameterType="java.util.ArrayList" resultType="net.cyweb.model.YangTrade">
+    select
+    <include refid="yangTradeColumns"/>
+    from yang_trade a
+    where  a.trade_id &lt;=#{tradeId} and a.member_id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item.robotId}
+    </foreach>
+    limit 1000;
+  </select>
+
+
+  <delete id="deleteBatch"  parameterType="java.util.List">
+    delete from yang_trade where trade_id in
+    <foreach collection="list" item="item" index="no" open="("
+             separator="," close=")">
+      #{item.tradeId}
+    </foreach>
+  </delete>
+
+  <select id="selectFeeByType" resultType="java.util.Map">
+
+    SELECT sum(fee) as total,`type`
+    from yang_trade y
+    <where>
+      <if test="currencyId != '' and currencyId != null ">
+        and  y.currency_id = #{currencyId}
+      </if>
+
+      <if test="currencyTradeId != '' and currencyTradeId != null ">
+        and  y.currency_id = #{currencyTradeId}
+      </if>
+
+      <if test="startTime != '' and startTime != null ">
+        and  y.add_time <![CDATA[ >= ]]> #{startTime}
+      </if>
+
+      <if test="endTime != '' and endTime != null ">
+        and  y.add_time <![CDATA[ <= ]]> #{endTime}
+      </if>
+      <if test="memberId != '' and memberId != null ">
+        and  y.member_id = #{memberId}
+      </if>
+    </where>
+
+
+    GROUP BY type
+  </select>
+
+
+  <select id="getLastDaySellFeeTotal" resultType="java.util.Map">
+    select
+    avg(a.price) as avg,sum(a.price*a.num*0.001) as sum
+    from yang_trade a
+    <where>
+      and a.type='sell'
+      and a.add_time&gt;=#{startTime}
+      and a.add_time&lt;=#{endTime}
+      and a.currency_id=#{currencyId}
+    </where>
+  </select>
+
+  <select id="getLastDayBuyFeeTotal" resultType="java.util.Map">
+    select
+    sum(num*0.001) as sum
+    from yang_trade a
+    <where>
+      and a.type='buy'
+      and a.add_time &gt;=#{startTime}
+      and a.add_time &lt;=#{endTime}
+      and a.currency_id=#{currencyId}
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangCurrencyUserMapper">
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCurrencyUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="cu_id" jdbcType="INTEGER" property="cuId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="currency_id" jdbcType="INTEGER" property="currencyId" />
+    <result column="num" jdbcType="DECIMAL" property="num" />
+    <result column="forzen_num" jdbcType="DECIMAL" property="forzenNum" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="chongzhi_url" jdbcType="VARCHAR" property="chongzhiUrl" />
+    <result column="show" jdbcType="INTEGER" property="show" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapEmail" type="net.cyweb.model.modelExt.YangCurrencyUserExt" extends="BaseResultMap">
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+
+
+
+
+
+
+
+</mapper>

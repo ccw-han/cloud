@@ -1,0 +1,13 @@
+server:
+  port: 8001
+  hostname: funcoin-eureka-service.default
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${server.hostname}:${server.port}/eureka/
+  instance:
+    prefer-ip-address: true
+logging:
+  config: classpath:conf/log4j2.xml

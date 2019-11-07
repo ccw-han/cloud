@@ -1,0 +1,31 @@
+server:
+  port: 8087 #服务端口
+spring:
+  application:
+    name: app-zuul-gateway #指定服务名
+###服务注册到eureka注册中心的地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://zpc:123456@127.0.0.1:8100/eureka/
+    ###因为该应用为服务提供者，是eureka的一个客户端，需要注册到注册中心
+    register-with-eureka: true
+    ###是否需要从eureka上检索服务
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    ip-address: 127.0.0.1
+zuul:
+  routes: #定义服务转发规则
+    item-service: #item-service这个名字是任意写的
+      path: /item-service/** #匹配item-service的请求app-item服务
+      #url: http://127.0.0.1:8081 #真正的微服务地址 这种无法启用熔断和负载均衡 采用服务id
+      serviceid: app-item
+    order-service: #名字尽量和业务系统相关
+      path: /order-service/** #匹配order-service的请求app-order服务
+      serviceid: app-order
+#  ignored-patterns: /**/admin/** 忽略所有带有/admin/的路径
+#  prefix: /api 前缀 也可以使用正则
+#  ignored-services: item-service, 忽略服务名称 '*' 所有
+
+

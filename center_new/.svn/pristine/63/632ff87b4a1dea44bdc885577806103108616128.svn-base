@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangOrdersMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrders" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="orders_id" property="ordersId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="trade_num" property="tradeNum" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="`type`" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="trade_time" property="tradeTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_shua" property="isShua" jdbcType="TINYINT" />
+    <result column="hasDo" property="hasDo" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="fields">
+    orders_id,member_id,currency_id,currency_trade_id,price,num,trade_num,fee,`type`,add_time,trade_time,status,is_shua,hasDo
+  </sql>
+
+  <sql id="fieldsUser">
+    a.orders_id as ordersId, a.member_id as memberId, a.currency_id as currencyId,
+     a.currency_trade_id as currencyTradeId, a.price, a.num, a.trade_num as tradeNum, a.fee, a.`type`,
+     a.add_time as addTime, a.trade_time as tradeTime,
+     a.status, a.is_shua as isShua, a.hasDo
+  </sql>
+
+  <select id="getOrderNumsInfo" resultType="java.util.HashMap" parameterType="net.cyweb.model.YangOrders" useCache="false" flushCache="true">
+
+    select ifnull(sum(case when type='sell' then 1 else 0 end ),0) as sellNum,ifnull(sum(case when type='buy' then 1 else 0 end ),0 ) as buyNum from yang_orders
+
+    <where>
+      and status  IN (0,1)
+
+      <if test=" robotId != null ">
+
+        and member_id  = #{robotId}
+
+      </if>
+
+      <if test=" currencyTradeId != null ">
+
+        and currency_trade_id  = #{currencyTradeId}
+
+      </if>
+
+      <if test=" currencyId != null ">
+
+        and currency_id  = #{currencyId}
+
+      </if>
+    </where>
+
+
+  </select>
+
+
+  <select id="fontUserTradeFiveRecord" resultType="net.cyweb.model.YangOrders" parameterType="net.cyweb.model.YangOrders">
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle
+    from yang_orders a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    <where>
+      and a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+      and a.member_id=#{memberId}
+      and a.status in (0,1) and a.hasDo=1
+    </where>
+    order by a.add_time desc
+  </select>
+
+  <select id="findMaxOrMinPriceSellOrder" parameterType="java.util.Map" resultType="net.cyweb.model.YangOrders">
+    select
+    *
+    from yang_orders
+    <where>
+      and is_shua=1
+      <if test="type!=null and type!=''">
+        and type=#{type}
+      </if>
+      <if test="currencyId!=null and currencyId!=''">
+        and currency_id=#{currencyId}
+      </if>
+      <if test="currencyTradeId!=null">
+        and currency_trade_id=#{currencyTradeId}
+      </if>
+      <if test="status!=null and status.size>0">
+        and status in
+        <foreach collection="status" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+      <if test="hasDo!=null and hasDo!=''">
+        and hasDo=#{hasDo}
+      </if>
+    </where>
+    <if test="orderByClause!=null and orderByClause!=''">
+    order by ${orderByClause} limit 1
+    </if>
+  </select>
+
+
+  <select id="countOrderNumByCondition" parameterType="net.cyweb.model.YangOrders" resultType="java.lang.Long">
+    select IFNULL(count(1),0)
+    from yang_orders
+    <where>
+      and currency_id=#{currencyId}
+      and currency_trade_id=#{currencyTradeId}
+      and type=#{type}
+      and status in (0,1)
+    </where>
+  </select>
+
+  <select id="queryNoDsOrderListForBuy" parameterType="java.util.Map" resultType="net.cyweb.model.YangOrders" useCache="false">
+    select
+    <include refid="fieldsUser"/>
+    from
+    (select *
+    from yang_orders
+    <where>
+      and status in (0,1)  and  currency_trade_id=#{currencyTradeId} and currency_id=#{currencyId} and member_id=#{memberId} and type='buy'
+      <choose>
+        <when test="priceType==1">
+          and    price between #{priceMin} and #{priceMax}
+        </when>
+        <when test="priceType==2 or priceType==3">
+          and    price &lt;=#{priceMax}
+        </when>
+        <when test="priceType==4">
+          and price &gt;=#{priceMin}
+        </when>
+      </choose>
+    </where>
+    ) as a
+    <where>
+      and  a.price not in
+      (select distinct(price)
+      from yang_orders
+      <where>
+        and status in (0,1)  and
+        currency_trade_id=#{currencyTradeId} and currency_id=#{currencyId} and member_id=#{memberId} and type='sell'
+        <choose>
+          <when test="priceType==1">
+            and     price between #{priceMin} and #{priceMax}
+          </when>
+          <when test="priceType==2 or priceType==3 ">
+            and    price &lt;=#{priceMax}
+          </when>
+          <when test=" priceType==4">
+            and price &gt;=#{priceMin}
+          </when>
+        </choose>
+      </where>
+    </where>
+    )
+  </select>
+
+  <select id="queryNoDsOrderListForSell" parameterType="java.util.Map" resultType="net.cyweb.model.YangOrders" useCache="false">
+    select
+    <include refid="fieldsUser"/>
+    from
+    (select *
+    from yang_orders
+    <where>
+      and status in (0,1)  and
+      currency_trade_id=#{currencyTradeId} and currency_id=#{currencyId} and member_id=#{memberId} and type='sell'
+      <choose>
+        <when test="priceType==1">
+          and     price between #{priceMin} and #{priceMax}
+        </when>
+        <when test="priceType==2 or priceType==3">
+          and    price &gt;=#{priceMin}
+        </when>
+        <when test=" priceType==4">
+          and  price &lt;=#{priceMax}
+        </when>
+      </choose>
+    </where>
+    ) as a
+    <where>
+      and  a.price not in
+      (select distinct(price)
+      from yang_orders
+      <where>
+        and status in (0,1)  and
+        currency_trade_id=#{currencyTradeId} and currency_id=#{currencyId} and member_id=#{memberId} and type='buy'
+        <choose>
+          <when test="priceType==1">
+            and    price between #{priceMin} and #{priceMax}
+          </when>
+          <when test="priceType==2 or priceType==3">
+            and    price &gt;=#{priceMin}
+          </when>
+          <when test="priceType==4">
+            and  price  &lt;=#{priceMax}
+          </when>
+        </choose>
+      </where>
+    </where>
+    )
+  </select>
+</mapper>
+
+

@@ -1,0 +1,203 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.cyweb</groupId>
+  <artifactId>cloud</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+
+
+    <module>common-service/eureka-server</module>
+    <module>common-service/config-server</module>
+    <module>front-services/user</module>
+    <module>others/web</module>
+    <module>common-service/common</module>
+    <module>common-service/bitcoinjsonrpcclient</module>
+
+    <module>coin-services/coin-eth</module>
+    <module>coin-services/coin-quasar</module>
+    <module>coin-services/coin-btc</module>
+    <module>coin-services/coin-bcc</module>
+    <module>coin-services/coin-ifc</module>
+    <module>coin-services/coin-eac</module>
+    <module>coin-services/coin-xwc</module>
+    <module>coin-services/coin-server-wdc</module>
+    <module>order-services/notice-server</module>
+    <module>front-services/javaapi</module>
+    <module>order-services/platformcurrency-server</module>
+    <module>order-services/klinemongodb</module>
+    <module>order-services/order_cancel_mod</module>
+    <module>order-services/order_trade_mod</module>
+    <module>order-services/order_create_mod</module>
+
+
+  </modules>
+  <packaging>pom</packaging>
+
+  <name>cloud</name>
+  <url>http://maven.apache.org</url>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.10.RELEASE</version>
+
+  </parent>
+
+  <properties>
+    <!--编码设置-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!--java版本-->
+    <java.version>1.8</java.version>
+
+    <!--语言包-->
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+
+    <!--mybatis-->
+    <mybatis.version>3.3.0</mybatis.version>
+    <mybatis-spring.version>1.2.3</mybatis-spring.version>
+    <mapper.version>1.1.0</mapper.version>
+    <pagehelper.version>1.2.2</pagehelper.version>
+
+    <!--加密-->
+    <commons-codec.version>1.6</commons-codec.version>
+
+    <!--预编译，省getter setter-->
+    <lombok.version>1.16.10</lombok.version>
+
+    <!--jwt token用-->
+    <jjwt.version>0.6.0</jjwt.version>
+
+    <!--json处理-->
+    <fastjson.version>1.2.17</fastjson.version>
+
+    <!--druid处理-->
+    <druid.version>1.0.18</druid.version>
+
+    <!--docker插件配置-->
+    <docker.version>0.4.11</docker.version>
+    <docker.repostory>47.52.233.53</docker.repostory>
+    <docker.registry.name>funcoin</docker.registry.name>
+    <docker.image.tag.test>deploy</docker.image.tag.test>
+
+    <!--swagger配置-->
+    <swagger2.version>2.4.0</swagger2.version>
+    <swagger-ui.version>2.4.0</swagger-ui.version>
+
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Dalston.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper-spring-boot-starter</artifactId>
+        <version>${mapper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+
+      <!-- druid -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <!--接口文档-->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger-ui.version}</version>
+      </dependency>
+
+      <!--网络请求-->
+      <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
+      <!--<dependency>-->
+        <!--<groupId>com.squareup.okhttp3</groupId>-->
+        <!--<artifactId>logging-interceptor</artifactId>-->
+        <!--<version>3.10.0</version>-->
+      <!--</dependency>-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-configuration-processor</artifactId>
+        <optional>true</optional>
+        <version>1.2.0.RELEASE</version>
+      </dependency>
+    </dependencies>
+
+  </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>cyweb_nexus</id>
+      <url>http://222.185.192.228:5003/repository/maven-releases/</url>
+    </repository>
+
+    <snapshotRepository>
+      <id>cyweb_nexus</id>
+      <url>http://222.185.192.228:5003/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

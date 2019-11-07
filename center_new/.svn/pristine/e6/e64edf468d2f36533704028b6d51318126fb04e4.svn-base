@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangFtActivityMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangFtActivity">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="DECIMAL"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="add_time" property="addTime" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getFuntNum" resultType="java.util.Map">
+        select
+        a.num as mining
+        from yang_ft_activity a
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and a.member_id=#{memberId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getCardOrder" resultType="java.util.Map">
+        select
+        b.fen as fen ,b.addTime as addTime,
+        a.oneFT,a.ethPrice,a.name,a.enName
+        from yang_card a
+        inner join yang_card_order b on a.id =b.cardId
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and b.memberId=#{memberId}
+            </if>
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <select id="getCardOrderCount" resultType="java.lang.Long">
+        select count(1) as total from (
+        select
+        b.fen as fen ,b.addTime as addTime,
+        a.oneFT,a.ethPrice,a.name,a.enName
+        from yang_card a
+        inner join yang_card_order b on a.id =b.cardId
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and b.memberId=#{memberId}
+            </if>
+        </where>
+        ) c
+    </select>
+
+
+    <select id="getFtLockRecord" resultType="java.util.Map">
+        select
+        *
+        from yang_ft_lock_record
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and member_id=#{memberId}
+            </if>
+            order by add_time desc
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <select id="getFtLockRecordCount" resultType="java.lang.Long">
+        select count(1) as total
+        from (
+        select
+        *
+        from yang_ft_lock_record
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and member_id=#{memberId}
+            </if>
+            order by add_time desc
+        </where>
+        ) a
+    </select>
+
+    <select id="getFtLockRecordSum" resultType="java.util.Map">
+        select
+        IFNULL(sum(num),0) as num
+        from yang_ft_lock_record
+        <where>
+            <if test="status!=null and status!=''">
+                and status=#{status}
+            </if>
+            <if test="memberId!=null and memberId!=''">
+                and member_id=#{memberId}
+            </if>
+        </where>
+        group by status
+    </select>
+
+    <select id="getFtLockInfo" resultType="java.util.Map">
+        select
+        a.forzen_num as locked
+        from yang_ft_lock a
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                and member_id=#{memberId}
+            </if>
+        </where>
+    </select>
+</mapper>

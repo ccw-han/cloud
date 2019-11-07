@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTibiOutMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangTibiOut">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="myurl" property="myurl"/>
+        <result column="name" property="name"/>
+        <result column="add_time" property="addTime" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="DECIMAL"/>
+        <result column="status" property="status"/>
+        <result column="ti_id" property="tiId"/>
+        <result column="height" property="height"/>
+        <result column="check_time" property="checkTime"/>
+        <result column="currency_id" property="currencyId" jdbcType="INTEGER"/>
+        <result column="fee" property="fee" jdbcType="DECIMAL"/>
+        <result column="actual" property="actual" jdbcType="DECIMAL"/>
+        <result column="confirmations" property="confirmations" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="findTiBiList" resultType="java.util.Map">
+        select
+        a.id,a.user_id as "userId",a.myurl,a.url,a.name,a.add_time as "addTime",
+        a.num,a.status,a.ti_id as "tiId",a.height,a.check_time as checkTime,
+        a.currency_id as "currecnyId",a.fee,a.actual,a.confirmations,b.currency_mark as "currencyMark"
+        from yang_tibi_out a
+        left join yang_currency b on a.currency_id=b.currency_id
+        <where>
+            a.status in (0,1)
+            <if test="currencyId!=null and currencyId!=''">
+                and a.currency_id=#{currencyId}
+            </if>
+            <if test="memberId!=null and memberId!=''">
+                and a.user_id=#{memberId}
+            </if>
+            order by a.add_time desc
+            limit #{start},#{end}
+        </where>
+    </select>
+
+
+    <select id="selectTotalRecord" resultType="java.lang.Integer">
+        select count(1) as total
+        from (
+        select
+        a.id,a.user_id as "userId",a.myurl,a.url,a.name,a.add_time as "addTime",
+        a.num,a.status,a.ti_id as "tiId",a.height,a.check_time as checkTime,
+        a.currency_id as "currecnyId",a.fee,a.actual,a.confirmations,b.currency_mark as "currencyMark"
+        from yang_tibi_out a
+        left join yang_currency b on a.currency_id=b.currency_id
+        <where>
+            a.status in (0,1)
+            <if test="currencyId!=null and currencyId!=''">
+                and a.currency_id=#{currencyId}
+            </if>
+            <if test="memberId!=null and memberId!=''">
+                and a.user_id=#{memberId}
+            </if>
+        </where>
+        ) c
+    </select>
+
+    <select id="getWithdrawRecordByStatus" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT ou.id trans_id, cu.currency_mark symbol, ou.num amount, ou.url address_to
+        FROM yang_tibi_out ou
+        LEFT JOIN yang_currency cu
+        ON ou.currency_id = cu.currency_id
+        WHERE ou.currency_id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and ou.status = 1
+        ORDER BY ou.add_time ASC
+    </select>
+    <select id="getWithdrawRecordByCurrencyId" resultMap="BaseResultMap">
+        SELECT
+        status,num,add_time AS addTime
+        FROM yang_tibi_out
+        <where>
+            <if test="id!=null and id!=''">
+                currency_id=#{currencyId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectYangTibiOutById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * from yang_tibi_out
+        <where>
+            <if test="id!=null and id!=''">
+                id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateYangTiBiOut" parameterType="net.cyweb.model.YangTibiOut">
+        UPDATE yang_tibi_out
+        <set>
+            <if test="status!=null and status!=''">
+                status = #{status}
+            </if>
+        </set>
+        <where>
+            <if test="id!=null and id !=''">
+                id = #{id}
+            </if>
+        </where>
+    </update>
+</mapper>

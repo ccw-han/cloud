@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangQianbaoAddressMapper">
+    <insert id="addDepositAddress" parameterType="net.cyweb.model.YangQianBaoAddress" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+    INSERT INTO
+    yang_qianbao_address
+    (user_id, name, qianbao_url, status, add_time,currency_id,remark)
+    VALUES
+    (#{userId},#{name},#{qianbaoUrl},#{status},#{addTime},#{currencyId},#{remark})
+  </insert>
+
+    <select id="getYangQianBaoAddressByQianBaoUrl" parameterType="java.lang.String" resultType="net.cyweb.model.YangQianBaoAddress">
+        SELECT id id,user_id userId, name ,qianbao_url qianbaoUrl,status,add_time addTime,currency_id currencyId,remark
+        from yang_qianbao_address
+        where
+        <if test="qiaoUrl!=null and qiao!=''">
+        qianbao_url = #{qianbaoUrl}
+        </if>
+    </select>
+
+    <insert id="insertYangQiaoBaoAddress" parameterType="net.cyweb.model.YangQianBaoAddress" >
+        INSERT INTO yang_qianbao_address (user_id , name ,qianbao_url , status , add_time , currency_id ,remark)
+        VALUES (#{userId},#{name},#{qianbaoUrl},#{status},#{addTime},#{currencyId},#{remark})
+    </insert>
+
+</mapper>

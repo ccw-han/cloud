@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangCurrencyMarketMapper" >
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangCurrencyMarket">
+        <result column="currency_id" property="currencyId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="show" property="show" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getCurrencyMarket" resultType="java.util.Map">
+      SELECT  id,title,`show`,order_num,currencyid,logo  FROM yang_currency_market
+    </select>
+
+    <select id="getTradeCurrencys" resultType="java.util.Map" parameterType="java.lang.Integer">
+    select currencyid,title from yang_currency_market where `show`=1
+    </select>
+</mapper>

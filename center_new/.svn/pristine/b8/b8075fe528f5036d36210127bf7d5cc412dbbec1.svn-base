@@ -1,0 +1,88 @@
+package net.cyweb;
+
+import cyweb.utils.CoinConst;
+import net.cyweb.mapper.YangCurrencyPairMapper;
+import net.cyweb.model.YangCurrencyPair;
+import net.cyweb.service.RedisService;
+import net.cyweb.task.OrderDealTask;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
+
+
+/**
+ * Hello world!
+ *
+ */
+@EnableAsync
+@EnableTransactionManagement //开启事务
+@ServletComponentScan //开启自动注解
+@EnableEurekaClient //向Eureka注册
+@SpringBootApplication
+@EnableSwagger2
+@MapperScan(basePackages = "net.cyweb.mapper")
+public class javaapi
+{
+
+    public static void main( String[] args )
+    {
+       SpringApplication.run(javaapi.class, args);
+    }
+}
+
+/*@Component
+class platFormCurrencyRunner implements ApplicationRunner {
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void run(ApplicationArguments applicationArguments) throws Exception {
+
+    }
+
+}*/
+/*
+
+@Component
+class OrderTradeModRunner implements ApplicationRunner {
+
+    @Autowired
+    OrderDealTask orderDealTask;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Autowired
+    YangCurrencyPairMapper yangCurrencyPairMapper;
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void run(ApplicationArguments applicationArguments) throws Exception {
+        List<YangCurrencyPair> list;
+        YangCurrencyPair yangCurrencyPair = new YangCurrencyPair();
+        list = yangCurrencyPairMapper.select(yangCurrencyPair);
+        for (YangCurrencyPair y : list) {
+            OrderDealTask orderDealTask = applicationContext.getBean(OrderDealTask.class);
+            orderDealTask.init();
+            orderDealTask.oldDeal(y);
+        }
+    }
+}*/

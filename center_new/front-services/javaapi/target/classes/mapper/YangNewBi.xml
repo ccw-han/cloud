@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangNewBiMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangNewbi">
+        <id column="currency_id" jdbcType="INTEGER" property="currencyId"/>
+        <result column="currency_name" jdbcType="VARCHAR" property="currencyName"/>
+        <result column="currency_logo" jdbcType="VARCHAR" property="currencyLogo"/>
+        <result column="currency_mark" jdbcType="VARCHAR" property="currencyMark"/>
+        <result column="atter" jdbcType="VARCHAR" property="atter"/>
+        <result column="currency_all_num" jdbcType="DECIMAL" property="currencyAllNum"/>
+        <result column="currency_content" jdbcType="VARCHAR" property="currencyContent"/>
+        <result column="web_url" jdbcType="VARCHAR" property="webUrl"/>
+        <result column="bbs_url" jdbcType="VARCHAR" property="bbsUrl"/>
+        <result column="pay_url" jdbcType="VARCHAR" property="payUrl"/>
+        <result column="uix_url" jdbcType="VARCHAR" property="uixUrl"/>
+        <result column="en_name" jdbcType="VARCHAR" property="enName"/>
+        <result column="developer" jdbcType="VARCHAR" property="developer"/>
+        <result column="q_time" jdbcType="VARCHAR" property="qTime"/>
+        <result column="pubdate" jdbcType="VARCHAR" property="pubdate"/>
+        <result column="core" jdbcType="VARCHAR" property="core"/>
+        <result column="total" jdbcType="VARCHAR" property="total"/>
+        <result column="pic1" jdbcType="VARCHAR" property="pic1"/>
+        <result column="pic2" jdbcType="VARCHAR" property="pic2"/>
+        <result column="pic3" jdbcType="VARCHAR" property="pic3"/>
+        <result column="pic4" jdbcType="VARCHAR" property="pic4"/>
+        <result column="pic5" jdbcType="VARCHAR" property="pic5"/>
+        <result column="pic6" jdbcType="VARCHAR" property="pic6"/>
+        <result column="add_time" jdbcType="INTEGER" property="addTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="sort" jdbcType="SMALLINT" property="sort"/>
+        <result column="currency_contentkr" jdbcType="VARCHAR" property="currencyContentkr"/>
+        <result column="currency_namekr" jdbcType="VARCHAR" property="currencyNamekr"/>
+    </resultMap>
+
+    <select id="getCurrencyProfile" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        currency_id,currency_name,status,pubdate,sort,
+        add_time,currency_logo,currency_mark,currency_all_num,web_url,
+        bbs_url,pay_url,uix_url,
+        en_name,developer,q_time,pubdate,core,total
+        FROM
+        yang_newbi
+        <where>
+            <if test="currencyId != null and currencyId != ''">
+                currency_id=#{currencyId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

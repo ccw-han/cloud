@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangFtLockRebateRecodeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangFtLockRebateRecode" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="addTime" property="addtime" jdbcType="INTEGER" />
+    <result column="addDate" property="adddate" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getTotal" resultType="java.math.BigDecimal" parameterType="java.util.Map">
+
+    select sum(num) from yang_ft_lock_rebate_recode y where 1 = 1
+
+    <if test="startdate != '' and startdate != null ">
+      and  y.addDate <![CDATA[ >= ]]> #{startdate}
+    </if>
+
+
+    <if test="enddate != '' and enddate != null ">
+      and  y.addDate <![CDATA[ <= ]]> #{enddate}
+    </if>
+
+
+
+    <if test="starttime != '' and starttime != null ">
+      and  y.addTime <![CDATA[ >= ]]> #{starttime}
+    </if>
+
+
+    <if test="endtime != '' and endtime != null ">
+      and  y.addTime <![CDATA[ <= ]]> #{endtime}
+    </if>
+
+    <if test="memberId != '' and memberId != null ">
+      and  y.member_id = #{memberId}
+    </if>
+
+
+  </select>
+
+
+  <select id="getLockInfo" resultType="java.math.BigDecimal" parameterType="java.util.Map">
+
+    select IFNULL(sum(y.num),0) as total from yang_ft_lock_rebate_recode y where 1 = 1
+
+    <if test="startTime != '' and startTime != null ">
+      and  y.addTime <![CDATA[ >= ]]> #{startTime}
+    </if>
+
+
+    <if test="endTime != '' and endTime != null ">
+      and  y.addTime <![CDATA[ <= ]]> #{endTime}
+    </if>
+
+    <if test="memberId != '' and memberId != null ">
+      and  y.memberId = #{memberId}
+    </if>
+
+
+  </select>
+
+  <insert id="insertRebatRecords" parameterType="java.util.List">
+    INSERT INTO yang_ft_lock_rebate_recode
+    (memberId,num, addTime,addDate)
+    VALUES
+    <foreach collection ="list" item="rebate" separator =",">
+      (#{rebate.memberid}, #{rebate.num}, #{rebate.addtime},#{rebate.adddate})
+    </foreach >
+  </insert>
+</mapper>

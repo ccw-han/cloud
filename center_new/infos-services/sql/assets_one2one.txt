@@ -1,0 +1,31 @@
+CREATE DEFINER=`root`@`%` PROCEDURE `assets_one2one`(
+IN member_id_in int, IN cid VARCHAR(256),IN rmb_in DECIMAL(30,9) ,IN rmb_operation VARCHAR(256) ,IN forzen_rmb_in DECIMAL(30,9) ,IN forzen_rmb_operation VARCHAR(256),
+IN member_id_in1 int, IN cid1 VARCHAR(256),IN rmb_in1 DECIMAL(30,9) ,IN rmb_operation1 VARCHAR(256) ,IN forzen_rmb_in1 DECIMAL(30,9) ,IN forzen_rmb_operation1 VARCHAR(256),
+IN member_id_in2 int, IN cid2 VARCHAR(256),IN rmb_in2 DECIMAL(30,9) ,IN rmb_operation2 VARCHAR(256) ,IN forzen_rmb_in2 DECIMAL(30,9) ,IN forzen_rmb_operation2 VARCHAR(256),
+IN member_id_in3 int, IN cid3 VARCHAR(256),IN rmb_in3 DECIMAL(30,9) ,IN rmb_operation3 VARCHAR(256) ,IN forzen_rmb_in3 DECIMAL(30,9) ,IN forzen_rmb_operation3 VARCHAR(256)
+)
+BEGIN
+DECLARE t_errors int(11);
+DECLARE t_errors1 int(11);
+DECLARE t_errors2 int(11);
+DECLARE t_errors3 int(11);
+ DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET t_errors=1;
+START TRANSACTION;
+set t_errors = 1;
+set t_errors1 = 1;
+set t_errors2 = 1;
+set t_errors3 = 1;
+
+	  call assets(member_id_in,cid,rmb_in,rmb_operation,forzen_rmb_in,forzen_rmb_operation,t_errors);
+
+		call assets(member_id_in1,cid1,rmb_in1,rmb_operation1,forzen_rmb_in1,forzen_rmb_operation1,t_errors1);
+
+		call assets(member_id_in2,cid2,rmb_in2,rmb_operation2,forzen_rmb_in2,forzen_rmb_operation2,t_errors2);
+
+		call assets(member_id_in3,cid3,rmb_in3,rmb_operation3,forzen_rmb_in3,forzen_rmb_operation3,t_errors3);
+
+IF t_errors = 1 or t_errors2=1 or t_errors1 = 1 or t_errors3=1  THEN ROLLBACK  ;
+else COMMIT ;
+end if ;
+select (t_errors | t_errors2 | t_errors1 | t_errors3);
+END

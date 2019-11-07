@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bitcoin-json-rpc-client" />
+        <module name="coin-server-bcc" />
+        <module name="coin-server-btc" />
+        <module name="coin-server-eac" />
+        <module name="coin-server-eth" />
+        <module name="coin-server-ifc" />
+        <module name="coin-server-quasar" />
+        <module name="coin-server-wdc" />
+        <module name="coin-server-xwc" />
+        <module name="common" />
+        <module name="config-server" />
+        <module name="eureka" />
+        <module name="javaapi" />
+        <module name="klinemongodb" />
+        <module name="notice" />
+        <module name="order-cancel-mod" />
+        <module name="order-create-mod" />
+        <module name="order-trade-mod" />
+        <module name="platformcurrency" />
+        <module name="user-server" />
+        <module name="web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bitcoin-json-rpc-client" target="1.8" />
+      <module name="cloud" target="1.8" />
+      <module name="coin-server-bcc" target="1.8" />
+      <module name="coin-server-btc" target="1.8" />
+      <module name="coin-server-eac" target="1.8" />
+      <module name="coin-server-eth" target="1.8" />
+      <module name="coin-server-ifc" target="1.8" />
+      <module name="coin-server-quasar" target="1.8" />
+      <module name="coin-server-wdc" target="1.8" />
+      <module name="coin-server-xwc" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="config-server" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="javaapi" target="1.8" />
+      <module name="klinemongodb" target="1.8" />
+      <module name="notice" target="1.8" />
+      <module name="order-cancel-mod" target="1.8" />
+      <module name="order-create-mod" target="1.8" />
+      <module name="order-trade-mod" target="1.8" />
+      <module name="platformcurrency" target="1.8" />
+      <module name="user-server" target="1.8" />
+      <module name="web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangTrade">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="trade_id" property="tradeId" jdbcType="INTEGER"/>
+        <result column="trade_no" property="tradeNo" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="currency_id" property="currencyId" jdbcType="INTEGER"/>
+        <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="num" property="num" jdbcType="DECIMAL"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="fee" property="fee" jdbcType="DECIMAL"/>
+        <result column="type" property="type" jdbcType="CHAR"/>
+        <result column="add_time" property="addTime" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="show" property="show" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="fieldsUser">
+    a.trade_id as tradeId,
+    a.trade_no as tradeNo,
+    a.member_id as memberId,
+    a.order_id as orderId,
+    a.currency_id as currencyId,
+    a.currency_trade_id as currencyTradeId,
+    a.price as price,
+    a.num as num,
+    a.money as money,
+    a.fee as fee,
+    a.type as type,
+    a.add_time as addTime,
+    a.status as status,
+    a.show as 'show'
+  </sql>
+    <select id="selectFeeByType" resultType="java.util.Map">
+
+        SELECT sum(fee) as total,`type`
+        from yang_trade y
+        <where>
+            <if test="currencyId != '' and currencyId != null ">
+                and y.currency_id = #{currencyId}
+            </if>
+
+            <if test="currencyTradeId != '' and currencyTradeId != null ">
+                and y.currency_id = #{currencyTradeId}
+            </if>
+
+            <if test="startTime != '' and startTime != null ">
+                and y.add_time <![CDATA[ >= ]]> #{startTime}
+            </if>
+
+            <if test="endTime != '' and endTime != null ">
+                and y.add_time <![CDATA[ <= ]]> #{endTime}
+            </if>
+            <if test="memberId != '' and memberId != null ">
+                and y.member_id = #{memberId}
+            </if>
+        </where>
+        GROUP BY `type`
+    </select>
+
+
+    <select id="selectFree" resultType="java.util.Map">
+    SELECT max(price) as max ,min(price) as min ,sum(price*num) as total , sum(num) as nums , currency_id ,currency_trade_id,price as firstPrice
+    from yang_trade
+    <where>
+        and add_time  &gt;= #{addTime}
+    </where>
+    GROUP BY currency_id,currency_trade_id
+  </select>
+
+
+    <select id="klineData" resultType="java.util.Map">
+        select
+        a.trade_id,count(a.trade_id) AS count,
+        <if test="addTime!='' and addTime!=null">
+            round(a.add_time /#{addTime}) AS group_time,
+            round(a.add_time /#{addTime})*#{addTime} AS trade_time,
+        </if>
+        max(a.price) AS max_price,
+        min(a.price) AS min_price,
+        sum(a.num) AS num,
+        a.price AS open_price,
+        SUBSTRING_INDEX(GROUP_CONCAT(a.price ORDER BY a.add_time DESC),',',1) AS close_price
+        from yang_trade a
+        <where>
+            and a.add_time NOT BETWEEN 1531584000 AND 1531656000
+            <if test="start!='' and start!=null and end!='' and end!=null">
+                and a.add_time between #{start} and #{end}
+            </if>
+
+            <if test="currencyId!='' and currencyId!=null">
+                and a.currency_id=#{currencyId}
+            </if>
+            <if test="currencyTradeId!='' and currencyTradeId!=null">
+                and a.currency_trade_id=#{currencyTradeId}
+            </if>
+
+        </where>
+        group by group_time
+        order by a.trade_id desc
+        limit 1000
+    </select>
+
+
+    <select id="getFontTradeLastTime" resultType="java.util.Map">
+    select max(a.add_time) as lastTradeTime
+    from yang_trade a
+    <where>
+      and a.currency_id=#{currencyId}
+      and a.currency_trade_id=#{currencyTradeId}
+    </where>
+
+  </select>
+
+    <select id="fontUserTradeFiveRecord" resultType="net.cyweb.model.YangTrade" parameterType="java.util.Map">
+        select
+        <include refid="fieldsUser"/>,
+        b.currency_mark as currencyMark,c.title as currencyTitle
+        from yang_trade a
+        inner join yang_currency b on b.currency_id=a.currency_id
+        inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+        <where>
+            and a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+            and a.member_id=#{memberId}
+        </where>
+        order by a.add_time desc
+        limit 5
+    </select>
+
+
+    <select id="searchTrade" resultType="java.util.Map">
+        select
+        <include refid="fieldsUser"/>,
+        b.currency_mark as currencyMark,c.title as currencyTitle,
+        d.input_price_num,d.show_num,d.all_money_num
+        from yang_trade a
+        inner join yang_currency b on b.currency_id=a.currency_id
+        inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+        inner join yang_currency_pair d on a.currency_id=d.currency_id
+        <where>
+            <if test="currencyId!='' and currencyId!=null">
+                and a.currency_id=#{currencyId}
+            </if>
+            <if test="currencyTradeId!='' and currencyTradeId!=null">
+                and a.currency_trade_id=#{currencyTradeId}
+            </if>
+            <if test="memberId!='' and memberId!=null">
+                and a.member_id=#{memberId}
+            </if>
+            <if test="type!='' and type!=null">
+                and a.type=#{type}
+            </if>
+            <if test="startTime!='' and startTime!=null">
+                and a.add_time &gt;=#{startTime}
+            </if>
+            <if test="endTime!='' and endTime!=null">
+                and a.add_time &lt;=#{endTime}
+            </if>
+        </where>
+        order by a.add_time desc
+        limit #{start},#{end}
+    </select>
+
+
+    <select id="searchTradeCount" resultType="java.lang.Long">
+        select count(1)
+        from (
+        select
+        1
+        from yang_trade a
+        inner join yang_currency b on b.currency_id=a.currency_id
+        inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+        inner join yang_currency_pair d on a.currency_id=d.currency_id
+        <where>
+            <if test="currencyId!='' and currencyId!=null">
+                and a.currency_id=#{currencyId}
+            </if>
+            <if test="currencyTradeId!='' and currencyTradeId!=null">
+                and a.currency_trade_id=#{currencyTradeId}
+            </if>
+            <if test="memberId!='' and memberId!=null">
+                and a.member_id=#{memberId}
+            </if>
+            <if test="type!='' and type!=null">
+                and a.type=#{type}
+            </if>
+            <if test="startTime!='' and startTime!=null">
+                and a.add_time &gt;=#{startTime}
+            </if>
+            <if test="endTime!='' and endTime!=null">
+                and a.add_time &lt;=#{endTime}
+            </if>
+        </where>
+        ) f
+    </select>
+
+    <select id="selectTradeByIds" resultMap="BaseResultMap">
+    SELECT * from yang_trade
+    <where>
+        and member_id = #{memberId} and currency_id = #{currencyId}
+    </where>
+    ORDER  BY add_time desc limit 1
+  </select>
+
+    <select id="getNewPrice" parameterType="java.lang.Long" resultType="java.util.Map">
+    select
+     a.price as price
+     from yang_trade a
+     <where>
+         and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId}
+     </where>
+    order by add_time desc limit 1
+  </select>
+
+    <select id="getPriceLimit" parameterType="java.lang.Long" resultType="java.util.Map">
+    select a.price as price from yang_trade a
+    <where>
+        and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &lt; #{dayBegin}
+    </where>
+    order by add_time desc limit 1
+  </select>
+
+    <select id="getMaxPrice" parameterType="java.lang.Long" resultType="java.util.Map">
+    select max(price) as maxPrice from yang_trade
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="getMinPrice" parameterType="java.lang.Long" resultType="java.util.Map">
+    select min(price) as minPrice from yang_trade
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="get24VOL" parameterType="java.lang.Long" resultType="java.util.Map">
+    select sum(money) as money from yang_trade
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="get24TurnoverL" parameterType="java.lang.Long" resultType="java.util.Map">
+    select sum(num) as num from yang_trade
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="getPriceLimits" parameterType="java.lang.Long" resultType="java.util.Map">
+    select * from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId} and t.add_time &lt; #{dayBegin}
+        </where>
+    order by t.add_time desc limit 1
+  </select>
+    <select id="getNewPrices" parameterType="java.lang.Long" resultType="java.util.Map">
+    select * from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId}
+        </where>
+    order by t.add_time desc limit 1
+  </select>
+
+    <select id="getMaxPrices" parameterType="java.lang.Long" resultType="java.util.Map">
+    select max(t.price) as maxPrice from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId} and t.add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="getMinPrices" parameterType="java.lang.Long" resultType="java.util.Map">
+    select min(t.price) as minPrice from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId} and t.add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="get24VOLs" parameterType="java.lang.Long" resultType="java.util.Map">
+    select sum(money) as money from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId} and t.add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="get24TurnoverLs" parameterType="java.lang.Long" resultType="java.util.Map">
+    select sum(num) as num from yang_trade t
+    inner join yang_newbi t1
+    on t.currency_id=t1.currency_id
+        <where>
+            and t.currency_id = #{currencyId} and t.currency_trade_id = #{currencyTradeId} and t.add_time &gt; #{dayBegin}
+        </where>
+  </select>
+
+    <select id="getOrdersByCid" resultMap="BaseResultMap">
+        SELECT * FROM yang_trade
+        <where>
+            AND currency_id = #{currencyId} AND currency_trade_id = #{currencyTradeId}
+        </where>
+        ORDER BY add_time DESC
+        limit 1
+    </select>
+
+    <select id="getOrdersByCurrencyId" resultMap="BaseResultMap">
+        SELECT * FROM yang_trade
+        <where>
+            AND currency_id = #{currencyId}
+        </where>
+        ORDER BY add_time DESC
+        limit 1
+    </select>
+
+    <select id="getMinimumGuaPrice" parameterType="java.lang.Long" resultType="java.util.Map">
+      select min(price) as minPrice from yang_orders
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+            and type="sell" and status="0"
+        </where>
+
+    </select>
+
+
+    <select id="MaximumOrderPrice" parameterType="java.lang.Long" resultType="java.util.Map">
+      select max(price) as maxPrice from yang_orders
+        <where>
+            and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId} and add_time &gt; #{dayBegin}
+            and type="sell" and status in("0","1")
+        </where>
+    </select>
+
+</mapper>

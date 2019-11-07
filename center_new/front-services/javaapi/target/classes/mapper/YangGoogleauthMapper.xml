@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangGoogleauthMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangGoogleauth">
+        <id column="google_id" property="googleId" jdbcType="INTEGER"/>
+        <result column="secret" property="secret" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="login_lock" property="loginLock" jdbcType="INTEGER"/>
+        <result column="order_lock" property="orderLock" jdbcType="INTEGER"/>
+        <result column="money_lock" property="moneyLock" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="qr_barcode_url" property="QRBarcodeURL" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getGoogleauthByStatus" resultType="java.util.Map">
+    select
+     a.google_id as google,
+     a.secret as secret,
+     a.member_id as memberId,
+     a.login_lock as loginLock,
+     a.order_lock as orderLock,
+     a.money_lock as moneyLock
+     from yang_googleauth a where member_id = #{memberId} and login_lock = 1
+  </select>
+    <select id="getGoogle" resultMap="BaseResultMap">
+    select
+    google_id AS googleId,
+    secret AS secret,
+    member_id AS memberId,
+    login_lock AS loginLock,
+    order_lock AS orderLock,
+    money_lock AS moneyLock,
+    qr_barcode_url AS QRBarcodeURL
+    from
+    yang_googleauth
+   <where>
+    <if test="memberId!=null and memberId!=''">
+    member_id=#{memberId}
+    </if>
+   </where>
+  </select>
+
+    <insert id="addGoogleSecretAndQR" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="memberId">
+    insert into yang_googleauth
+    (secret,member_id,login_lock,order_lock,money_lock,qr_barcode_url)
+    values
+    (#{secret},#{memberId},#{loginLock},#{orderLock},#{moneyLock},#{QRBarcodeURL})
+    ON DUPLICATE KEY UPDATE
+    secret=#{secret},qr_barcode_url=#{QRBarcodeURL}
+    </insert>
+
+    <select id="findGoogleSecretAndQR" resultMap="BaseResultMap">
+     select secret,qr_barcode_url,member_id
+     from yang_googleauth
+    <where>
+    <if test="memberId!=null and memberId!=''">
+     member_id=#{memberId}
+    </if>
+    </where>
+    </select>
+
+    <update id="updateGoogle" parameterType="java.util.Map">
+    update yang_googleauth set  login_lock = #{loginLock},order_lock=#{orderLock},money_lock=#{moneyLock}
+  <where>
+    <if test="memberId！=null and memberId!=''">
+    member_id = #{memberId}
+    </if>
+  </where>
+    </update>
+
+    <delete id="cancleGoogle">
+        DELETE FROM yang_googleauth
+        <where>
+        <if test="memberId!=null and memberId!=''">
+        member_id=#{memberId}
+        </if>
+        </where>
+    </delete>
+
+    <select id="findSecret" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select secret from yang_googleauth
+        <where>
+        <if test="memberId!=null and memberId!=''">
+        member_id=#{memberId}
+        </if>
+        </where>
+    </select>
+
+</mapper>

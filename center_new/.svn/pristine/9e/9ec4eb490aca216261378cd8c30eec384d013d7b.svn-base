@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangCollectConfigMapper">
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCollectConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cId" jdbcType="INTEGER" property="cid" />
+    <result column="collect_type" jdbcType="INTEGER" property="collectType" />
+    <result column="extData" jdbcType="VARCHAR" property="extdata" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="safe_price_min" jdbcType="DECIMAL" property="safePriceMin" />
+    <result column="safe_price_max" jdbcType="DECIMAL" property="safePriceMax" />
+  </resultMap>
+
+  <select id="findCollectConfigInfo" resultType="net.cyweb.model.YangCollectConfig">
+    select
+    a.id, a.cId,
+    a.status,a.price,
+    a.collect_type as collectType,a.extData,
+    a.safe_price_max as safePriceMax ,a.safe_price_min as safePriceMin,
+    a.userDefinedBl, b.currency_mark as currencyMark
+    from yang_collect_config  a
+    left join yang_currency b
+     on a.cId=b.currency_id
+     where a.status=1;
+  </select>
+</mapper>

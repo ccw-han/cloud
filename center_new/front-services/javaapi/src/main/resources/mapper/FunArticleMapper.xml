@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.FunArticleMapper">
+
+    <select id="getArticleList" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        fa.create_at as createAt,fa.article_id as articleId, fac.title as title,trim(fac.content) as content
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            fa.status="1"
+            <if test="language!=null and language!=''">
+                and fac.language=#{language}
+            </if>
+            and fa.position_id in
+            <foreach collection="positionId" index="index" item="item" open="(" separator="," close=")">
+                #{item.positionId}
+            </foreach>
+            <if test="searchText!='' and searchText!=null">
+                and fac.title like "%"#{searchText}"%"
+            </if>
+        </where>
+        order by fa.create_at desc
+        limit #{start},#{end}
+    </select>
+
+    <select id="getArticleByArticleId" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        fa.create_at as createAt,fa.article_id as articleId, fac.title as title,trim(fac.content) as content
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            fa.status="1"
+            <if test="language!=null and language!=''">
+                and fac.language=#{language}
+            </if>
+            and fa.position_id in
+            <foreach collection="positionId" index="index" item="item" open="(" separator="," close=")">
+                #{item.positionId}
+            </foreach>
+            <if test="searchText!='' and searchText!=null">
+                and fac.title like "%"#{searchText}"%"
+            </if>
+            <if test='articleId != "" and articleId != null'>
+                and fa.article_id = #{articleId}
+            </if>
+
+        </where>
+        order by fa.create_at desc
+    </select>
+
+    <select id="countArticleList" resultType="java.util.Map" parameterType="java.util.Map">
+        select count(1) as total from
+        ( select
+        fa.create_at as createAt,fa.article_id as articleId, fac.title as title
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            fa.status="1"
+            <if test="language!=null and language!=''">
+                and fac.language=#{language}
+            </if>
+            and fa.position_id in
+            <foreach collection="positionId" index="index" item="item" open="(" separator="," close=")">
+                #{item.positionId}
+            </foreach>
+            <if test="searchText!='' and searchText!=null">
+                and fac.title like "%"#{searchText}"%"
+            </if>
+        </where>
+        ) a
+    </select>
+
+    <select id="getGongGaoType" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        a.id as positionId
+        from cms_category a
+        <where>
+            a.module="article" and a.del_flag="0"
+            <if test="type!=null and type!=''">
+                and a.keywords=#{keywords}
+            </if>
+            <if test="type=='' or type==null">
+                and a.parent_id in
+                (
+                select
+                id from cms_category b where b.keywords=#{keywords} and b.module="link" and b.del_flag="0"
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="getArticleDetail" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        fa.create_at as createAt, fa.article_id as articleId,fac.content as content,fac.title as title,fa.position_id as
+        positionId,fac.language as language
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            <if test="articleId!=null and articleId!=''">
+                and fa.article_id=#{articleId}
+            </if>
+            <if test="language!=null and language!=''">
+                and fac.language=#{language}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getRelativeArticList" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        fac.title as title,fa.article_id as articleId
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            <if test="positionId!=null and positionId!=''">
+                and fa.position_id=#{positionId}
+            </if>
+            <if test="articleId!=null and articleId!=''">
+                and fa.article_id=#{articleId}
+            </if>
+            <if test="language!=null and positionId!=''">
+                and fac.language=#{language}
+            </if>
+        </where>
+        order by fa.create_at desc limit 0,5
+    </select>
+
+    <select id="getRelativeArticListRandom" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        fac.title as title,fa.article_id as articleId
+        FROM yang_article fa
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+        LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+        <where>
+            <if test="positionId!=null and positionId!=''">
+                and fa.position_id=#{positionId}
+            </if>
+            <if test="articleId!=null and articleId!=''">
+                and fa.article_id=#{articleId}
+            </if>
+            <if test="language!=null and language!=''">
+                and fac.language=#{language}
+            </if>
+        </where>
+		order by RAND()  limit 10
+    </select>
+
+
+    <select id="getLinkeList" resultType="java.util.Map">
+      select
+      *
+      from cms_link
+      where del_flag=#{delFlag}
+      and category_id=#{positionId}
+      order by create_by
+      limit 0,1
+    </select>
+</mapper>

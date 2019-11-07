@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/common-service/bitcoinjsonrpcclient/bitcoin-json-rpc-client.iml" filepath="$PROJECT_DIR$/common-service/bitcoinjsonrpcclient/bitcoin-json-rpc-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud.iml" filepath="$PROJECT_DIR$/cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-bcc/coin-server-bcc.iml" filepath="$PROJECT_DIR$/coin-services/coin-bcc/coin-server-bcc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-btc/coin-server-btc.iml" filepath="$PROJECT_DIR$/coin-services/coin-btc/coin-server-btc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-eac/coin-server-eac.iml" filepath="$PROJECT_DIR$/coin-services/coin-eac/coin-server-eac.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-eth/coin-server-eth.iml" filepath="$PROJECT_DIR$/coin-services/coin-eth/coin-server-eth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-ifc/coin-server-ifc.iml" filepath="$PROJECT_DIR$/coin-services/coin-ifc/coin-server-ifc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-quasar/coin-server-quasar.iml" filepath="$PROJECT_DIR$/coin-services/coin-quasar/coin-server-quasar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-server-wdc/coin-server-wdc.iml" filepath="$PROJECT_DIR$/coin-services/coin-server-wdc/coin-server-wdc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coin-services/coin-xwc/coin-server-xwc.iml" filepath="$PROJECT_DIR$/coin-services/coin-xwc/coin-server-xwc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-service/common/common.iml" filepath="$PROJECT_DIR$/common-service/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-service/config-server/config-server.iml" filepath="$PROJECT_DIR$/common-service/config-server/config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-service/eureka-server/eureka.iml" filepath="$PROJECT_DIR$/common-service/eureka-server/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/front-services/javaapi/javaapi.iml" filepath="$PROJECT_DIR$/front-services/javaapi/javaapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/klinemongodb/klinemongodb.iml" filepath="$PROJECT_DIR$/order-services/klinemongodb/klinemongodb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/notice-server/notice.iml" filepath="$PROJECT_DIR$/order-services/notice-server/notice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/order_cancel_mod/order-cancel-mod.iml" filepath="$PROJECT_DIR$/order-services/order_cancel_mod/order-cancel-mod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/order_create_mod/order-create-mod.iml" filepath="$PROJECT_DIR$/order-services/order_create_mod/order-create-mod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/order_trade_mod/order-trade-mod.iml" filepath="$PROJECT_DIR$/order-services/order_trade_mod/order-trade-mod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-services/platformcurrency-server/platformcurrency.iml" filepath="$PROJECT_DIR$/order-services/platformcurrency-server/platformcurrency.iml" />
+      <module fileurl="file://$PROJECT_DIR$/front-services/user/user-server.iml" filepath="$PROJECT_DIR$/front-services/user/user-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/others/web/web.iml" filepath="$PROJECT_DIR$/others/web/web.iml" />
+    </modules>
+  </component>
+</project>

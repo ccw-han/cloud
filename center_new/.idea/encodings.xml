@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-bcc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-btc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-eac" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-eth" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-ifc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-quasar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-server-wdc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coin-services/coin-xwc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-service/bitcoinjsonrpcclient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-service/common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-service/config-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-service/eureka-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front-services/javaapi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/front-services/user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/klinemongodb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/notice-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/order_cancel_mod" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/order_create_mod" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/order_trade_mod" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-services/platformcurrency-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/others/web" charset="UTF-8" />
+  </component>
+</project>

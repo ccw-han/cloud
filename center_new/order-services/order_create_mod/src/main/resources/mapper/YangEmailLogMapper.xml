@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangEmailLogMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangEmailLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="send_mail" property="sendMail" jdbcType="VARCHAR" />
+    <result column="accept_mail" property="acceptMail" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="referer_url" property="refererUrl" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="wrong_times" property="wrongTimes" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="getLastEmail" parameterType="java.util.Map" resultType="java.util.Map">
+    select max(add_time) as addTime
+    from yang_email_log
+    where accept_mail=#{email}
+    and type=#{type}
+    and content=#{content}
+  </select>
+</mapper>

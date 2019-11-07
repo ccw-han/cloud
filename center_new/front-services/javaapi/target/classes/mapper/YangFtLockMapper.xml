@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangFtLockMapper">
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangFtLock">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="num" jdbcType="DECIMAL" property="num" />
+    <result column="forzen_num" jdbcType="DECIMAL" property="forzenNum" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+  </resultMap>
+
+
+  <select id="getLockInfo" resultType="java.math.BigDecimal" parameterType="java.util.Map">
+
+    select IFNULL(sum(y.forzen_num),0) as total from yang_ft_lock y
+    where 1 = 1
+    <if test="memberId != '' and memberId != null ">
+      and  y.member_id = #{memberId}
+    </if>
+
+  </select>
+</mapper>

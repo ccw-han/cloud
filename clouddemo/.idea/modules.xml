@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/clouddemo.iml" filepath="$PROJECT_DIR$/clouddemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commodityservice/commodityservice.iml" filepath="$PROJECT_DIR$/commodityservice/commodityservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eurakaserver/eurakaserver.iml" filepath="$PROJECT_DIR$/eurakaserver/eurakaserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orderservice/orderservice.iml" filepath="$PROJECT_DIR$/orderservice/orderservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-api-gateway/service-api-gateway.iml" filepath="$PROJECT_DIR$/service-api-gateway/service-api-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-config-server/service-config-server.iml" filepath="$PROJECT_DIR$/service-config-server/service-config-server.iml" />
+    </modules>
+  </component>
+</project>

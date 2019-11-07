@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTrade" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_id" property="tradeId" jdbcType="INTEGER" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="klineData" resultType="java.util.Map">
+    select
+    a.trade_id,count(a.trade_id) AS count,
+    <if test="addTime!='' and addTime!=null">
+    round(a.add_time /#{addTime}) AS group_time,
+    round(a.add_time /#{addTime})*#{addTime} AS trade_time,
+    </if>
+    max(a.price) AS max_price,
+    min(a.price) AS min_price,
+    sum(a.num) AS num,
+    a.price AS open_price,
+    SUBSTRING_INDEX(GROUP_CONCAT(a.price ORDER BY a.add_time DESC),',',1) AS close_price
+    from yang_trade a
+    <where>
+      <if test="start!='' and start!=null and end!='' and end!=null" >
+        and a.add_time between  #{start} and #{end}
+      </if>
+
+        <if test="currencyId!='' and currencyId!=null">
+         and a.currency_id=#{currencyId}
+        </if>
+      <if test="currencyTradeId!='' and currencyTradeId!=null">
+         and  a.currency_trade_id=#{currencyTradeId}
+      </if>
+
+    </where>
+    group by group_time
+    order by a.trade_id desc
+  </select>
+
+  <select id="klineDataA" resultType="java.util.Map">
+    select
+    a.trade_id,count(a.trade_id) AS count,
+    <if test="addTime!='' and addTime!=null">
+      round(a.add_time /#{addTime}) AS group_time,
+      round(a.add_time /#{addTime})*#{addTime} AS trade_time,
+    </if>
+    max(a.price) AS max_price,
+    min(a.price) AS min_price,
+    sum(a.num) AS num,
+    a.price AS open_price,
+    SUBSTRING_INDEX(GROUP_CONCAT(a.price ORDER BY a.add_time DESC),',',1) AS close_price
+    from yang_trade a
+    <where>
+      <if test="start!='' and start!=null " >
+        and a.add_time &gt;  #{start}
+      </if>
+      <if test=" end!='' and end!=null" >
+        and a.add_time &lt;= #{end}
+      </if>
+
+      <if test="currencyId!='' and currencyId!=null">
+        and a.currency_id=#{currencyId}
+      </if>
+      <if test="currencyTradeId!='' and currencyTradeId!=null">
+        and  a.currency_trade_id=#{currencyTradeId}
+      </if>
+
+    </where>
+    group by group_time
+    order by a.trade_id desc
+    limit 1000
+  </select>
+
+
+  <select id="queryKlineHistoryData" resultType="java.util.Map">
+     select
+        a.trade_id,count(a.trade_id) AS count,
+      round(a.add_time /#{times}) AS group_time,
+      round(a.add_time /#{times})*#{times} AS trade_time,
+   max(a.add_time) as maxTradeTime,
+    max(a.price) AS maxPrice,
+    min(a.price) AS minPrice,
+    sum(a.num) AS num,
+    min(a.add_time) AS lastTradeTime,
+    a.price AS open_price,
+    SUBSTRING_INDEX(GROUP_CONCAT(a.price ORDER BY a.add_time DESC),',',1) AS close_price,
+    a.currency_id as currencyId,
+    a.currency_trade_id as currencyTradeId
+    from yang_trade a
+      <where>
+          and a.add_time &lt;#{endTime} and a.add_time &gt;=#{startTime} and a.add_time not between 1531584000 and 1531656000
+      </where>
+    group by group_time,currencyId,currencyTradeId
+    order by trade_id asc;
+  </select>
+
+  <select id="queryKlineHistoryDataA" resultType="java.util.Map">
+     select
+        a.trade_id,count(a.trade_id) AS count,
+      round(a.add_time /#{times}) AS group_time,
+      round(a.add_time /#{times})*#{times} AS trade_time,
+   max(a.add_time) as maxTradeTime,
+    max(a.price) AS maxPrice,
+    min(a.price) AS minPrice,
+    sum(a.num) AS num,
+    min(a.add_time) AS lastTradeTime,
+    a.price AS open_price,
+    SUBSTRING_INDEX(GROUP_CONCAT(a.price ORDER BY a.add_time DESC),',',1) AS close_price,
+    a.currency_id as currencyId,
+    a.currency_trade_id as currencyTradeId
+    from yang_trade_robot a
+      <where>
+          and a.add_time &lt;#{endTime} and a.add_time &gt;=#{startTime} and a.add_time not between 1531584000 and 1531656000
+      </where>
+    group by group_time,currencyId,currencyTradeId
+    order by trade_id asc;
+  </select>
+
+
+    <select id="tradeData" resultMap="BaseResultMap">
+      select
+      currency_id,currency_trade_id,price,num,add_time,trade_id
+      from yang_trade
+        <where>
+            and add_time &gt;=#{startTime} and add_time &lt;#{endTime}
+            and add_time not between 1531584000 and 1531656000
+        </where>
+      order by add_time asc
+    </select>
+
+    <select id="getAllYangTrades" resultMap="BaseResultMap">
+        SELECT *
+        from yang_trade
+        order by add_time asc
+        limit 100000
+    </select>
+
+</mapper>

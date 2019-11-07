@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTrade" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_id" property="tradeId" jdbcType="INTEGER" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="selectMaxAndMinAndTotal" resultType="java.util.Map">
+    SELECT max(price) as max ,min(price) as min ,sum(price*num) as total , sum(num) as nums , currency_id ,currency_trade_id,price as firstPrice
+    from yang_trade where 1 = 1 and add_time  &gt;= #{addTime}
+    GROUP BY currency_id,currency_trade_id
+  </select>
+
+</mapper>

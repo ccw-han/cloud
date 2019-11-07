@@ -1,0 +1,59 @@
+server:
+  port: 8003
+  max-http-header-size: 10000000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: coin-server
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: 123456
+    port: 6379
+    timeout: 3000
+    pool:
+      max-idle: 500
+      min-idle: 50
+      max-active: 2000
+      max-wait : 1000
+logging:
+  config: classpath:conf/log4j2.xml
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+druid:
+  url: jdbc:mysql://127.0.0.1:3306/funcoin?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: root
+  password: 123456
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    port: 8001
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+feign:
+  hystrix:
+    enabled: false

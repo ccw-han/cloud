@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangCardNumMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCardNum" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="dealNum" property="dealnum" jdbcType="DECIMAL" />
+    <result column="addTime" property="addtime" jdbcType="INTEGER" />
+    <result column="memberId" property="memberid" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="getFuntNum" resultType="java.util.Map">
+   select
+    ifnull(b.num,0) as num, ifnull(b.dealNum,0) as dealNum
+    from yang_card_num b
+   where b.memberId=#{memberId}
+  </select>
+</mapper>

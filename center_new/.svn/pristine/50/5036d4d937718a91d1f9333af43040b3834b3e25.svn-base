@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangOrdersMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrders" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="orders_id" property="ordersId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="trade_num" property="tradeNum" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="`type`" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="trade_time" property="tradeTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_shua" property="isShua" jdbcType="TINYINT" />
+    <result column="hasDo" property="hasDo" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="fields">
+    orders_id,member_id,currency_id,currency_trade_id,price,num,trade_num,fee,`type`,add_time,trade_time,status,is_shua,hasDo
+  </sql>
+
+  <sql id="fieldsUser">
+    a.orders_id as ordersId, a.member_id as memberId, a.currency_id as currencyId,
+     a.currency_trade_id as currencyTradeId, a.price, a.num, a.trade_num as tradeNum, a.fee, a.`type`,
+     a.add_time as addTime, a.trade_time as tradeTime,
+     a.status, a.is_shua as isShua, a.hasDo
+  </sql>
+
+
+  <select id="fontUserTradeFiveRecord" resultType="net.cyweb.model.YangOrders" parameterType="net.cyweb.model.YangOrders" useCache="false" flushCache="true">
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle
+    from yang_orders a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    where a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+    and a.member_id=#{memberId}
+    and a.status in (0,1)
+    order by a.add_time desc
+  </select>
+
+
+  <select id="dealOrder" statementType="CALLABLE" resultType="java.util.Map">
+		<![CDATA[
+         call deal_order(
+        #{memberId,mode=IN,jdbcType=INTEGER},#{cyId,mode=IN,jdbcType=VARCHAR},#{num,mode=IN,jdbcType=DECIMAL}, #{numOptions,mode=IN,jdbcType=VARCHAR},
+        #{forzen,mode=IN,jdbcType=DECIMAL},#{forzenOptions,mode=IN,jdbcType=NUMERIC},#{trade_orders_id,mode=IN,jdbcType=INTEGER},
+        #{memberId1,mode=IN,jdbcType=INTEGER},#{cyId1,mode=IN,jdbcType=VARCHAR},#{num1,mode=IN,jdbcType=DECIMAL}, #{numOptions1,mode=IN,jdbcType=VARCHAR},
+        #{forzen1,mode=IN,jdbcType=DECIMAL},#{forzenOptions1,mode=IN,jdbcType=NUMERIC},#{trade_orders_id1,mode=IN,jdbcType=INTEGER},
+        #{memberId2,mode=IN,jdbcType=INTEGER},#{cyId2,mode=IN,jdbcType=VARCHAR},#{num2,mode=IN,jdbcType=DECIMAL}, #{numOptions2,mode=IN,jdbcType=VARCHAR},
+        #{forzen2,mode=IN,jdbcType=DECIMAL},#{forzenOptions2,mode=IN,jdbcType=NUMERIC},#{trade_orders_id2,mode=IN,jdbcType=INTEGER},
+        #{memberId3,mode=IN,jdbcType=INTEGER},#{cyId3,mode=IN,jdbcType=VARCHAR},#{num3,mode=IN,jdbcType=DECIMAL}, #{numOptions3,mode=IN,jdbcType=VARCHAR},
+        #{forzen3,mode=IN,jdbcType=DECIMAL},#{forzenOptions3,mode=IN,jdbcType=NUMERIC},#{trade_orders_id3,mode=IN,jdbcType=INTEGER},
+
+        #{memberId4,mode=IN,jdbcType=INTEGER},#{cyId4,mode=IN,jdbcType=VARCHAR},#{num4,mode=IN,jdbcType=DECIMAL}, #{numOptions4,mode=IN,jdbcType=VARCHAR},
+        #{forzen4,mode=IN,jdbcType=DECIMAL},#{forzenOptions4,mode=IN,jdbcType=NUMERIC},#{trade_orders_id4,mode=IN,jdbcType=INTEGER},
+
+        #{orderId1,mode=IN,jdbcType=INTEGER} ,#{tradeNum1,mode=IN,jdbcType=VARCHAR}, #{tradeTime1},
+        #{orderId2,mode=IN,jdbcType=INTEGER}, #{tradeNum2,mode=IN,jdbcType=VARCHAR},  #{tradeTime2},
+
+        #{tradeNo1},#{t_memberId1},#{t_currencyId1},#{currencyTradeId1},#{price1},#{t_num1},#{t_money1},#{fee1},#{t_type1},#{t_addTime1},#{t_status1},#{show1},#{t_orders_id1},
+        #{tradeNo2},#{t_memberId2},#{t_currencyId2},#{currencyTradeId2},#{price2},#{t_num2},#{t_money2},#{fee2},#{t_type2},#{t_addTime2},#{t_status2},#{show2},#{t_orders_id2},
+
+        #{f_memberId1},#{f_type1},#{f_moneyType1},#{f_money1},#{f_addTime1},#{f_currencyId1},#{f_ip1},#{f_content1},
+        #{f_memberId2},#{f_type2},#{f_moneyType2},#{f_money2},#{f_addTime2},#{f_currencyId2},#{f_ip2},#{f_content2},
+
+         #{order_id_in,mode=IN,jdbcType=INTEGER},
+         #{dealType,mode=IN,jdbcType=INTEGER}
+         );
+      ]]>
+	</select>
+</mapper>
+
+

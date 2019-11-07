@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangAcceptanceMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangAcceptance">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="acceptances_id" jdbcType="VARCHAR" property="acceptancesId"/>
+        <result column="member_id" jdbcType="INTEGER" property="memberId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="wx_code" jdbcType="VARCHAR" property="wxCode"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="emergency_contact_name" jdbcType="VARCHAR" property="emergencyContactName"/>
+        <result column="emergency_contact_phone" jdbcType="VARCHAR" property="emergencyContactPhone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="relationship" jdbcType="VARCHAR" property="relationship"/>
+        <result column="self_card_hold_pic" jdbcType="VARCHAR" property="selfCardHoldPic"/>
+        <result column="registration_book" jdbcType="VARCHAR" property="registrationBook"/>
+        <result column="accest_pic" jdbcType="VARCHAR" property="accestPic"/>
+        <result column="video_authentication" jdbcType="VARCHAR" property="videoAuthentication"/>
+        <result column="states" jdbcType="VARCHAR" property="states"/>
+        <result column="is_ready" jdbcType="VARCHAR" property="isReady"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_by" jdbcType="INTEGER" property="createBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_by" jdbcType="INTEGER" property="updateBy"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+    </resultMap>
+
+    <insert id="insertYangAcceptance" parameterType="net.cyweb.model.YangAcceptance" useGeneratedKeys="true"
+            keyColumn="id">
+        INSERT INTO
+        yang_member_acceptances
+        (acceptances_id,member_id,name,phone,wx_code,email,emergency_contact_name,emergency_contact_phone,address,relationship,self_card_hold_pic,registration_book,accest_pic,video_authentication,states,is_ready,create_time,create_by,update_time,update_by,del_flag)
+        VALUES
+        (#{acceptancesId},#{memberId},#{name},#{phone},#{wxCode},#{email},#{emergencyContactName},#{emergencyContactPhone},#{address},#{relationship},
+        #{selfCardHoldPic},#{registrationBook},#{accestPic},#{videoAuthentication},#{states},#{isReady},#{createTime},#{createBy},
+        #{updateTime},#{updateBy},#{delFlag})
+    </insert>
+
+    <update id="updateAcceptancesPicInfo">
+        update yang_member_acceptances set self_card_hold_pic = #{selfCardHoldPic}, registration_book = #{registrationBook}, accest_pic = #{accestPic}, video_authentication = #{videoAuthentication} where member_id = #{memberId}
+    </update>
+
+    <update id="updateStatesByMemberId">
+        update yang_member_acceptances
+        SET states = #{states}
+        WHERE member_id = #{memberId}
+    </update>
+</mapper>

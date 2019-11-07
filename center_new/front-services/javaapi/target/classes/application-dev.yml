@@ -1,0 +1,96 @@
+server:
+  port: 8009
+  max-http-header-size: 10000000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: javaApi
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 0
+    host: localhost
+    password:
+    port: 6379
+    timeout: 30000
+    pool:
+      max-idle: 50
+      min-idle: 5
+      max-active: 20
+      max-wait: 100
+  data:
+    mongodb:
+      custom:
+        hosts:
+          - localhost
+        ports:
+          - 27017
+        username: bimin
+        password: 123456
+        database: admin
+        connections-per-host: 20
+        min-connections-per-host: 20
+logging:
+  config: classpath:conf/log4j2-d.xml
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+#druid:
+#  url: jdbc:mysql://222.185.192.230:30001/funcoin?useUnicode=true&&characterEncoding=utf-8
+#  driver: com.mysql.jdbc.Driver
+#  username: funcoin
+#  password: Funcoin123!@#
+#  initial-size: 5
+#  max-active: 20
+#  test-on-borrow: true
+druid:
+  url: jdbc:mysql://47.91.249.54:3306/funcoin?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: root
+  password: 5bGhk7rHMbBLTu
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+#druid:
+#  url: jdbc:mysql://localhost:3306/funcoin?useUnicode=true&amp;characterEncoding=utf-8
+#  driver: com.mysql.jdbc.Driver
+#  username: root
+#  password: 12345678
+#  initial-size: 5
+#  max-active: 20
+#  test-on-borrow: true
+eureka:
+  instance:
+    hostname: localhost
+    port: 8001
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+feign:
+  hystrix:
+    enabled: false
+myProps:
+  ftp:
+    rootPath: G:/ftpsever/localuser/test/
+    savePath: id_card/
+    newReadHost: http://192.168.32.41:30010/
+    newReadHost2: http://222.185.192.230:30010/
+    oldReadHost: http://static.bimin.vip/
+    adminNewPath: admin_new/images/
+

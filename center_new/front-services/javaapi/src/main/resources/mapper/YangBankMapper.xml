@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangBankMapper" >
+<select id="selectYangBankById" resultType="java.util.Map">
+    select * from yang_bank
+    <where>
+      <if test="uid!=null and uid!=''">
+        uid=#{uid}
+      </if>
+    </where>
+    <if test="type!=null and type !=''">
+        and type =#{type}
+    </if>
+</select>
+
+    <insert id="saveBankInfoByUser" parameterType="net.cyweb.model.YangBank">
+        insert into yang_bank(bankname,uid,cardname,address,cardnum,bank_branch,status,`type`)
+        values (#{bankname},#{uid},#{cardname},#{address},#{cardnum},#{bankBranch},#{status},#{type})
+    </insert>
+
+    <select id="checkCardOnly" resultType="java.util.Map">
+        select * from yang_bank
+        <if test="cardnum!=null and cardnum!=''">
+            where cardnum = #{cardnum}
+        </if>
+    </select>
+
+    <delete id="deleteBankInfo">
+        delete from  yang_bank
+        <if test="id!=null and id!=''">
+        where id = #{bankId}
+        </if>
+    </delete>
+</mapper>

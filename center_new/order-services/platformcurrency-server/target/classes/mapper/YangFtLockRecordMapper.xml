@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangFtLockRecordMapper">
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangFtLockRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="num" jdbcType="DECIMAL" property="num" />
+    <result column="add_time" jdbcType="INTEGER" property="addTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="remark" jdbcType="INTEGER" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="lock_time" jdbcType="INTEGER" property="lockTime" />
+  </resultMap>
+
+
+  <select id="findLastDayLockInfo" resultType="net.cyweb.model.YangFtLockRecord" parameterType="java.util.Map">
+    select
+    sum(num) as num,member_id as memberId
+    from yang_ft_lock_record
+    where status=#{status} and add_time &lt;= #{targetTimes}
+    group by member_id
+  </select>
+
+
+  <update  id="updateFtLockRecord" parameterType="java.util.List">
+    update yang_ft_lock_record set
+    status=
+    <foreach collection="list" item="item" index="index" separator=" " open="case member_id" close="end">
+      when #{item.memberId,jdbcType=INTEGER} then #{item.status,jdbcType=DECIMAL}
+    </foreach>
+    where member_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.memberId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+
+</mapper>

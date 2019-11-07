@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTrade" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_id" property="tradeId" jdbcType="INTEGER" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="fieldsUser">
+    a.trade_id as tradeId,
+    a.trade_no as tradeNo,
+    a.member_id as memberId,
+    a.order_id as orderId,
+    a.currency_id as currencyId,
+    a.currency_trade_id as currencyTradeId,
+    a.price as price,
+    a.num as num,
+    a.money as money,
+    a.fee as fee,
+    a.type as type,
+    a.add_time as addTime,
+    a.status as status,
+    a.show as 'show'
+  </sql>
+
+  <select id="fontUserTradeFiveRecord" resultType="net.cyweb.model.YangTrade" parameterType="net.cyweb.model.YangTrade" useCache="false">
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle
+    from yang_trade a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    where a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+    and a.member_id=#{memberId}
+    order by a.add_time desc
+  </select>
+
+</mapper>

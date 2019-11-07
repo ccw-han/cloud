@@ -1,0 +1,73 @@
+server:
+  port: 8001
+  max-http-header-size: 10000000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: platformcurrency-server
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 5
+    host: redis-service.default
+    password: Wang628625
+    port: 6379
+    timeout: 3000
+    pool:
+      max-idle: 50
+      min-idle: 5
+      max-active: 100
+      max-wait : 100
+  data:
+    mongodb:
+      custom:
+        hosts:
+        - mongodb-service.default
+        ports:
+        - 7801
+        username: funcoin
+        password: Funcoin123!!!
+        database: funcoin
+        connections-per-host: 200
+        min-connections-per-host: 200
+logging:
+  config: classpath:conf/log4j2-d.xml
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+druid:
+  url: jdbc:mysql://mysql-service.default:3306/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: funcoin_new
+  password: 'funcoinnew!!!lisimeng'
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+eureka:
+  instance:
+    preferIpAddress: true
+    ip-address: 10.107.172.220
+    port: 8001
+  client:
+    serviceUrl:
+      defaultZone: http://funcoin-eureka-service:8001/eureka/
+feign:
+  hystrix:
+    enabled: false
+myProps:
+  notice:
+    url: http://server.funcoin.co/trade/notify

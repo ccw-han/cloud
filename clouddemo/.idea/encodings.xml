@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/commodityservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commodityservice/src/main/resources/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/commodityservice/src/main/resources/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/commodityservice/target/classes/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/eurakaserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurakaserver/src/main/resources/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/orderservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orderservice/src/main/resources/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/service-api-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-api-gateway/src/main/resources/application.yaml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/service-config-server" charset="UTF-8" />
+  </component>
+</project>

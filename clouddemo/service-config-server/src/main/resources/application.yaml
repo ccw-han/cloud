@@ -1,0 +1,32 @@
+server:
+  port: 7788 #服务端口
+spring:
+  application:
+    name:  microservice-config-server #指定服务名
+  cloud:
+    config:
+      server:
+        git: #配置git仓库地址
+          uri: https://github.com/ccw-han/springcloudconfig.git
+          search-paths:
+            #- myspringcloudconfig        # git仓库地址下的相对地址，可以配置多个，用,分割。
+          username: 454749293@qq.com    #码云账号（公有项目不需要设置）
+          password: ccw123580    #码云密码（公有项目不需要设置）
+      label: master    #分支名称
+#  rabbitmq: #RabbitMQ相关的配置
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+###服务注册到eureka注册中心的地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://zpc:123456@127.0.0.1:8100/eureka/
+    ###因为该应用为服务提供者，是eureka的一个客户端，需要注册到注册中心
+    register-with-eureka: true
+    ###是否需要从eureka上检索服务
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    instance-id: ${spring.application.name}###${server.port} #指定实例id

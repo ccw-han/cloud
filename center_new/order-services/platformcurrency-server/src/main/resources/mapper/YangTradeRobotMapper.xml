@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeRobotMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrdersRobot" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_id" property="tradeId" jdbcType="INTEGER" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="yangTradeRobotColumns">
+    	a.trade_id AS "tradeId",
+		a.trade_no AS "tradeNo",
+		a.member_id AS "memberId",
+		a.currency_id AS "currencyId",
+		a.currency_trade_id AS "currencyTradeId",
+		a.price AS "price",
+		a.num AS "num",
+		a.money AS "money",
+		a.fee AS "fee",
+		a.type AS "type",
+		a.add_time AS "addTime",
+		a.status AS "status",
+		a.show AS "show"
+  </sql>
+
+  <insert id="saveBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO yang_trade_robot ( `trade_id`,`trade_no`,member_id,currency_id,currency_trade_id,price,num,money,fee,`type`,add_time,`status`,`show`)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      (#{item.tradeId}, #{item.tradeNo},#{item.memberId},#{item.currencyId},#{item.currencyTradeId},#{item.price},#{item.num},
+      #{item.money},#{item.fee},#{item.type},#{item.addTime},#{item.status},#{item.show})
+    </foreach>
+  </insert>
+
+</mapper>

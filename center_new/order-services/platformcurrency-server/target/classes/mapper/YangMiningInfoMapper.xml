@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangMiningInfoMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangMiningInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="addTime" property="addTime" jdbcType="INTEGER" />
+    <result column="addDate" property="addDate" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="memberId" property="memberId" jdbcType="INTEGER" />
+    <result column="tradeId" property="tradeId" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  <insert id="insertMiningInfoBatch" parameterType="java.util.List">
+    INSERT INTO yang_mining_info
+    (addTime, addDate, num,memberId,tradeId)
+    VALUES
+    <foreach collection ="list" item="info" separator =",">
+      (#{info.addTime}, #{info.addDate}, #{info.num},#{info.memberId},#{info.tradeId})
+    </foreach >
+  </insert>
+
+
+  <select id="getRakeInfo" resultType="java.math.BigDecimal" parameterType="java.util.Map">
+
+    select IFNULL(sum(y.num),0) as total from yang_mining_info y where 1 = 1
+    <if test="startTime != '' and startTime != null ">
+      and  y.addTime <![CDATA[ >= ]]> #{startTime}
+    </if>
+
+
+    <if test="endTime != '' and endTime != null ">
+      and  y.addTime <![CDATA[ <= ]]> #{endTime}
+    </if>
+
+    <if test="memberId != '' and memberId != null ">
+      and  y.memberId = #{memberId}
+    </if>
+
+  </select>
+</mapper>

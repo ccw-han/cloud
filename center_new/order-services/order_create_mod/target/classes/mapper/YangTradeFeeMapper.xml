@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTradeFeeMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTradeFee" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="trade_fee_id" property="tradeFeeId" jdbcType="INTEGER" />
+    <result column="cy_id" property="cyId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="INTEGER" />
+    <result column="currency_buy_fee" property="currencyBuyFee" jdbcType="REAL" />
+    <result column="currency_sell_fee" property="currencySellFee" jdbcType="REAL" />
+  </resultMap>
+</mapper>

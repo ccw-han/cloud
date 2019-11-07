@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangCurrencyMapper">
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCurrency">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="currency_id" jdbcType="INTEGER" property="currencyId" />
+    <result column="currency_namekr" jdbcType="VARCHAR" property="currencyNamekr" />
+    <result column="currency_name" jdbcType="VARCHAR" property="currencyName" />
+    <result column="currency_logo" jdbcType="VARCHAR" property="currencyLogo" />
+    <result column="currency_mark" jdbcType="VARCHAR" property="currencyMark" />
+    <result column="currency_all_money" jdbcType="DECIMAL" property="currencyAllMoney" />
+    <result column="currency_all_num" jdbcType="DECIMAL" property="currencyAllNum" />
+    <result column="currency_buy_fee" jdbcType="REAL" property="currencyBuyFee" />
+    <result column="currency_sell_fee" jdbcType="REAL" property="currencySellFee" />
+    <result column="currency_url" jdbcType="VARCHAR" property="currencyUrl" />
+    <result column="trade_currency_id" jdbcType="INTEGER" property="tradeCurrencyId" />
+    <result column="is_line" jdbcType="TINYINT" property="isLine" />
+    <result column="is_lock" jdbcType="TINYINT" property="isLock" />
+    <result column="port_number" jdbcType="INTEGER" property="portNumber" />
+    <result column="add_time" jdbcType="INTEGER" property="addTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="rpc_url" jdbcType="VARCHAR" property="rpcUrl" />
+    <result column="rpc_pwd" jdbcType="VARCHAR" property="rpcPwd" />
+    <result column="rpc_user" jdbcType="VARCHAR" property="rpcUser" />
+    <result column="currency_all_tibi" jdbcType="INTEGER" property="currencyAllTibi" />
+    <result column="detail_url" jdbcType="VARCHAR" property="detailUrl" />
+    <result column="qianbao_url" jdbcType="VARCHAR" property="qianbaoUrl" />
+    <result column="qianbao_key" jdbcType="VARCHAR" property="qianbaoKey" />
+    <result column="price_up" jdbcType="REAL" property="priceUp" />
+    <result column="price_down" jdbcType="REAL" property="priceDown" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="currency_digit_num" jdbcType="INTEGER" property="currencyDigitNum" />
+    <result column="guanwang_url" jdbcType="VARCHAR" property="guanwangUrl" />
+    <result column="tibi_fee" jdbcType="REAL" property="tibiFee" />
+    <result column="tibi_qrs" jdbcType="INTEGER" property="tibiQrs" />
+    <result column="tibi_small" jdbcType="REAL" property="tibiSmall" />
+    <result column="chongbi_open" jdbcType="INTEGER" property="chongbiOpen" />
+    <result column="tibi_open" jdbcType="INTEGER" property="tibiOpen" />
+    <result column="currency_digit_cny" jdbcType="INTEGER" property="currencyDigitCny" />
+    <result column="currency_digit_usd" jdbcType="INTEGER" property="currencyDigitUsd" />
+    <result column="txurl" jdbcType="VARCHAR" property="txurl" />
+    <result column="trade_market" jdbcType="VARCHAR" property="tradeMarket" />
+    <result column="currency_accuracy" jdbcType="INTEGER" property="currencyAccuracy" />
+    <result column="main_id" jdbcType="VARCHAR" property="mainId" />
+    <result column="exten_info" jdbcType="VARCHAR" property="extenInfo" />
+    <result column="bean" jdbcType="VARCHAR" property="bean" />
+    <result column="tibi_fee_num" jdbcType="DECIMAL" property="tibiFeeNum" />
+    <result column="min_num" jdbcType="DECIMAL" property="minNum" />
+    <result column="gas_limit" jdbcType="BIGINT" property="gasLimit" />
+    <result column="currency_content" jdbcType="LONGVARCHAR" property="currencyContent" />
+  </resultMap>
+
+   <resultMap id="ext" type="net.cyweb.model.modelExt.YangCurrencyExt" extends="BaseResultMap">
+     <result column="num" jdbcType="DECIMAL" property="num" />
+     <result column="forzen_num" jdbcType="DECIMAL" property="forzenNum" />
+   </resultMap>
+
+
+
+</mapper>

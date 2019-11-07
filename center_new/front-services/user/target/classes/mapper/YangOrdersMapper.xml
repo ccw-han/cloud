@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangOrdersMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrders" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="orders_id" property="ordersId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="trade_num" property="tradeNum" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="`type`" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="trade_time" property="tradeTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_shua" property="isShua" jdbcType="TINYINT" />
+    <result column="hasDo" property="hasDo" jdbcType="INTEGER" />
+  </resultMap>
+
+
+
+  <select id="getOrderByfields" resultType="java.util.Map">
+
+
+     select * from yang_orders
+
+    <where>
+      <if test=" currency_id!= '' and currency_id != null ">
+
+        and  currency_id = #{currency_id}
+
+      </if>
+
+      <if test=" currency_trade_id!= '' and currency_trade_id != null ">
+
+        and currency_trade_id = #{currency_trade_id}
+
+      </if>
+
+      <if test=" type!= '' and type != null ">
+
+        and type = #{type}
+
+      </if>
+
+
+      <if test=" orders_id!= '' and orders_id != null ">
+
+        and orders_id  &lt;= #{orders_id}
+
+      </if>
+
+      and (status = 0 or status = 1)
+
+    </where>
+
+
+  </select>
+
+
+
+
+</mapper>
+
+

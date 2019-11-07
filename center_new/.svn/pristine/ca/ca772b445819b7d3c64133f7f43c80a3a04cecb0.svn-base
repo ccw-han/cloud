@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangInviteCodeMapper" >
+
+    <select id="getInviteCode" resultType="YangInviteCode">
+        select * from yang_invite_code where invite_code = #{inviteCode}
+    </select>
+
+    <insert id="addInviteCode">
+        insert into yang_invite_code(invite_code) value(#{invCode})
+    </insert>
+</mapper>

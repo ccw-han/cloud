@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangMemberMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangMember" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="pwdtrade" property="pwdtrade" jdbcType="VARCHAR" />
+    <result column="nick" property="nick" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cardtype" property="cardtype" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" javaType="long" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="login_time" property="loginTime" jdbcType="INTEGER" />
+    <result column="vip_level" property="vipLevel" jdbcType="INTEGER" />
+    <result column="vip_end_time" property="vipEndTime" jdbcType="INTEGER" />
+    <result column="rmb" property="rmb" jdbcType="DECIMAL" />
+    <result column="forzen_rmb" property="forzenRmb" jdbcType="DECIMAL" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="dividend_num" property="dividendNum" jdbcType="DECIMAL" />
+    <result column="threepwd" property="threepwd" jdbcType="VARCHAR" />
+    <result column="typepwd1" property="typepwd1" jdbcType="INTEGER" />
+    <result column="typepwd2" property="typepwd2" jdbcType="INTEGER" />
+    <result column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="phone1" property="phone1" jdbcType="VARCHAR" />
+    <result column="safe_time" property="safeTime" jdbcType="VARCHAR" />
+    <result column="qqopenid" property="qqopenid" jdbcType="VARCHAR" />
+    <result column="pic1" property="pic1" jdbcType="VARCHAR" />
+    <result column="pic2" property="pic2" jdbcType="VARCHAR" />
+    <result column="pic3" property="pic3" jdbcType="VARCHAR" />
+    <result column="shenhestatus" property="shenhestatus" jdbcType="INTEGER" />
+    <result column="zhifubao" property="zhifubao" jdbcType="VARCHAR" />
+    <result column="cmoney" property="cmoney" jdbcType="DOUBLE" />
+    <result column="invit_time" property="invitTime" jdbcType="INTEGER" />
+    <result column="google_id" property="googleId" jdbcType="INTEGER" />
+    <result column="invit" property="invit" jdbcType="INTEGER" />
+    <result column="trade_super" property="tradeSuper" jdbcType="INTEGER" />
+    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+  
+  
+</mapper>

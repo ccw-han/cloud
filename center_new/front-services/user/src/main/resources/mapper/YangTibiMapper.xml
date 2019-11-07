@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangTibiMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangTibi" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="myurl" property="myurl" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="ti_id" property="tiId" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="actual" property="actual" jdbcType="DECIMAL" />
+    <result column="confirmations" property="confirmations" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <resultMap id="BaseResultMapExt" type="net.cyweb.model.modelExt.YangTibiExt"  extends="BaseResultMap">
+
+    <result column="currencyMark" property="currencyMark" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+
+  <select id="selectTibi" resultMap="BaseResultMapExt" parameterType="net.cyweb.model.modelExt.YangTibiExt">
+
+    SELECT y.*,c.currency_mark as currencyMark FROM  yang_tibi y LEFT  join yang_currency c on c.currency_id = y.currency_id
+
+    <where>
+      <if test=" userId!= '' and userId != null ">
+
+        and  y.user_id = #{userId}
+
+      </if>
+
+      <if test=" currencyId!= '' and currencyId != null ">
+
+        and  y.currency_id = #{currencyId}
+
+      </if>
+    </where>
+  </select>
+
+</mapper>

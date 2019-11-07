@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cyweb.mapper.YangArticleLookMapper">
+
+    <select id="getLookList" resultType="java.util.Map">
+      select
+       distinct a.article_id as articleId,fac.title as title
+        FROM  yang_article_look yl
+        left join yang_article fa on yl.article_id = fa.article_id
+        LEFT JOIN yang_article_relation a ON a.article_id = fa.article_id
+		LEFT JOIN yang_article_content fac ON a.relate_id = fac.id
+      where member_id=#{memberId}
+      order by  yl.create_at desc
+      limit 5
+    </select>
+
+</mapper>

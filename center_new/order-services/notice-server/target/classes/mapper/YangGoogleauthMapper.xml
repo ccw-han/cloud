@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangGoogleauthMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangGoogleauth" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="google_id" property="googleId" jdbcType="INTEGER" />
+    <result column="secret" property="secret" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="login_lock" property="loginLock" jdbcType="INTEGER" />
+    <result column="order_lock" property="orderLock" jdbcType="INTEGER" />
+    <result column="money_lock" property="moneyLock" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

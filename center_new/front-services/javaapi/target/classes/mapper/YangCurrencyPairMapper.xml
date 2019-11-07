@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangCurrencyPairMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCurrencyPair" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="cy_id" property="cyId" jdbcType="INTEGER" />
+    <result column="currency_mark" property="currencyMark" jdbcType="VARCHAR" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_group" property="currencyGroup" jdbcType="INTEGER" />
+    <result column="currency_buy_fee" property="currencyBuyFee" jdbcType="DECIMAL" />
+    <result column="currency_sell_fee" property="currencySellFee" jdbcType="DECIMAL" />
+    <result column="up_time" property="upTime" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="input_price_num" property="inputPriceNum" jdbcType="INTEGER" />
+    <result column="show_num" property="showNum" jdbcType="INTEGER" />
+    <result column="all_money_num" property="allMoneyNum" jdbcType="INTEGER" />
+    <result column="rate_num" property="rateNum" jdbcType="INTEGER" />
+    <result column="min_money" property="minMoney" jdbcType="REAL" />
+    <result column="min_buy_shua" property="minBuyShua" jdbcType="VARCHAR" />
+    <result column="max_buy_shua" property="maxBuyShua" jdbcType="VARCHAR" />
+
+
+    <result column="is_chuang" property="isChuang" jdbcType="TINYINT" />
+
+    <result column="is_old" property="isOld" jdbcType="TINYINT" />
+
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+      <result column="is_show_first_desk" property="isShowFirstDesk" jdbcType="CHAR" />
+
+    <result column="min1" property="min1" jdbcType="REAL" />
+    <result column="max1" property="max1" jdbcType="REAL" />
+    <result column="probability1" property="probability1" jdbcType="INTEGER" />
+
+    <result column="min2" property="min2" jdbcType="REAL" />
+    <result column="max2" property="max2" jdbcType="REAL" />
+    <result column="probability2" property="probability2" jdbcType="INTEGER" />
+
+    <result column="min3" property="min3" jdbcType="REAL" />
+
+    <result column="max3" property="max3" jdbcType="REAL" />
+
+    <result column="max_price" property="maxPrice" jdbcType="DECIMAL" />
+
+    <result column="min_price" property="minPrice" jdbcType="DECIMAL" />
+
+
+    <result column="base_price" property="basePrice" jdbcType="DECIMAL" />
+
+    <result column="probability3" property="probability3" jdbcType="INTEGER" />
+
+    <result column="robotId" property="robotId" jdbcType="INTEGER" />
+
+    <result column="shuaBl" property="shuaBl" jdbcType="INTEGER" />
+
+    <result column="upOrDown" property="upOrDown" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="funCurrencyPairColumns">
+		a.cy_id AS "cyId",
+		a.currency_mark AS "currencyMark",
+		a.currency_trade_id AS "currencyTradeId",
+		a.currency_id AS "currencyId",
+		a.currency_group AS "currencyGroup",
+		a.currency_buy_fee AS "currencyBuyFee",
+		a.currency_sell_fee AS "currencySellFee",
+		FROM_UNIXTIME(a.up_time,'%Y-%m-%d %H:%i:%S ')  AS "upTime",
+		a.order_num AS "orderNum",
+		a.input_price_num AS "inputPriceNum",
+		a.show_num AS "showNum",
+		a.all_money_num AS "allMoneyNum",
+		a.rate_num AS "rateNum",
+		a.min_money AS "minMoney",
+		a.min_buy_shua AS "minBuyShua",
+		a.del_flag AS "delFlag",
+		a.max_buy_shua AS "maxBuyShua",
+		a.min1 as "min1",
+		a.max1 as "max1",
+		a.probability1 as "probability1",
+		a.min2 as "min2",
+		a.max2 as "max2",
+		a.probability2 as "probability2",
+		a.min3 as "min3",
+		a.max3 as "max3",
+		a.probability3 as "probability3",
+		a.robotId as "robotId",
+		a.shuaBl as "shuaBl",
+	  	a.shuaBlMin as "shuaBlMin",
+		a.upOrDown as "upOrDown",
+		a.base_price as "basePrice",
+		a.max_price as "maxPrice",
+		a.min_price as "minPrice",
+		is_chuang as "isChuang",
+		is_old as isOld
+	</sql>
+
+  <select id="getCurrencyListChange"  resultType="java.util.Map">
+    select
+    <include refid="funCurrencyPairColumns"/>,
+    yc.currency_logo as currencyLogo,
+    ym.logo as tradeLogo,
+    ym.title as tradeMark,
+    yc.add_time as addTime,
+    yc.detail_url as detailId,
+    a.currency_buy_fee as currencyBuyFee,
+    a.currency_sell_fee as currencySellFee
+    from yang_currency_pair a
+      inner join yang_currency yc on yc.currency_id = a.currency_id
+      inner join yang_currency_market ym on ym.currencyid =a.currency_trade_id
+      <where>
+          <if test="isLine!='' and isLine!=null">
+            and yc.is_line=#{isLine}
+          </if>
+          <if test="ids!='' and ids!=null">
+             and  a.cy_id in
+              <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+          </if>
+          <if test="searchText!=null and searchText!=''">
+             and  a.currency_mark like "%"#{searchText}"%"
+          </if>
+          <if test='isMine=="1"'>
+              and a.currency_id =#{currencyId}
+          </if>
+          <if test='isMine=="0"'>
+              and a.currency_id !=#{currencyId}
+          </if>
+          <if test="currencyTradeId!='' and currencyTradeId!=null">
+              and ym.currencyid=#{currencyTradeId}
+          </if>
+      </where>
+  </select>
+
+    <select id="getCurrencyDetailChange"  resultType="java.util.Map">
+        select
+        <include refid="funCurrencyPairColumns"/>,
+        yc.currency_logo as currencyLogo,
+        ym.logo as tradeLogo,
+        ym.title as tradeMark,
+        yc.add_time as addTime,
+        yc.detail_url as detailId,
+        a.currency_buy_fee as currencyBuyFee,
+        a.currency_sell_fee as currencySellFee
+        from yang_currency_pair a
+        inner join yang_currency yc on yc.currency_id = a.currency_id
+        inner join yang_currency_market ym on ym.currencyid =a.currency_trade_id
+        <where>
+            <if test="cyId!='' and cyId!=null">
+                and a.cy_id=#{cyId}
+            </if>
+            <if test="currencyId!=null and currencyId!=''">
+                and a.currency_id =#{currencyId}
+            </if>
+            <if test="currencyTradeId!=null and currencyTradeId!=''">
+                and a.currency_trade_id !=#{currencyTradeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCurrencyPairList" resultType="java.util.Map">
+      select
+       a.*,
+      c.title as tradeMark
+      from yang_currency_pair a
+      left join yang_currency b on a.currency_id=b.currency_id
+      left join yang_currency_market c on a.currency_trade_id=c.currencyid
+      <where>
+          <if test="cyId!=null and cyId!=''">
+            and a.cy_id=#{cyId}
+          </if>
+          <if test="currencyId!=null and currencyId!=''">
+              and a.currency_id=#{currencyId}
+          </if>
+      </where>
+    </select>
+
+    <select id="getYangCurrencyPairByMark" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from yang_currency_pair where currency_mark = #{mark}
+    </select>
+    <select id="getCurrencyListChanges" resultType="java.util.Map">
+        select * from yang_currency_pair a
+        <where>
+            <if test="isChuang != null and isChuang !=''">
+                and a.is_chuang = #{isChuang}
+            </if>
+        </where>
+    </select>
+
+    <select id="getYangCurrencyPairByPairId" resultMap="BaseResultMap" >
+        select * from yang_currency_pair where currency_id = #{currencyId} AND  currency_trade_id = #{currencyTradeId}
+    </select>
+
+
+    <select id="getTradeName" resultType="java.util.Map">
+        select a.currency_mark as currencyTradeMark from yang_currency_pair a
+       where a.currency_id = #{currencyTradeId}
+    </select>
+    <select id="getYangCurrencyPairList" resultType="java.util.Map">
+        select * from yang_currency_pair a
+        <where>
+        a.is_show_first_desk='1'
+    </where>
+
+    </select>
+    <select id="getYangCurrencyPairLists" resultType="java.util.Map">
+        select * from yang_currency_pair a
+        inner join yang_newbi b
+        on a.currency_mark=b.currency_mark
+        order by a.up_time desc limit 10
+    </select>
+</mapper>

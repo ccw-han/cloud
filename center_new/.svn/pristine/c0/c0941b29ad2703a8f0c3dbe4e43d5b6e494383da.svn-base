@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangMemberMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangMember">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="openid" property="openid" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="pwd" property="pwd" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="pwdtrade" property="pwdtrade" jdbcType="VARCHAR"/>
+        <result column="nick" property="nick" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cardtype" property="cardtype" jdbcType="VARCHAR"/>
+        <result column="idcard" property="idcard" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="reg_time" property="regTime" jdbcType="INTEGER"/>
+        <result column="login_ip" property="loginIp" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="INTEGER"/>
+        <result column="vip_level" property="vipLevel" jdbcType="INTEGER"/>
+        <result column="vip_end_time" property="vipEndTime" jdbcType="INTEGER"/>
+        <result column="rmb" property="rmb" jdbcType="DECIMAL"/>
+        <result column="forzen_rmb" property="forzenRmb" jdbcType="DECIMAL"/>
+        <result column="head" property="head" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="INTEGER"/>
+        <result column="city" property="city" jdbcType="INTEGER"/>
+        <result column="job" property="job" jdbcType="VARCHAR"/>
+        <result column="is_lock" property="isLock" jdbcType="TINYINT"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="dividend_num" property="dividendNum" jdbcType="DECIMAL"/>
+        <result column="threepwd" property="threepwd" jdbcType="VARCHAR"/>
+        <result column="typepwd1" property="typepwd1" jdbcType="INTEGER"/>
+        <result column="typepwd2" property="typepwd2" jdbcType="INTEGER"/>
+        <result column="bank_id" property="bankId" jdbcType="VARCHAR"/>
+        <result column="bank" property="bank" jdbcType="VARCHAR"/>
+        <result column="phone1" property="phone1" jdbcType="VARCHAR"/>
+        <result column="safe_time" property="safeTime" jdbcType="VARCHAR"/>
+        <result column="qqopenid" property="qqopenid" jdbcType="VARCHAR"/>
+        <result column="pic1" property="pic1" jdbcType="VARCHAR"/>
+        <result column="pic2" property="pic2" jdbcType="VARCHAR"/>
+        <result column="pic3" property="pic3" jdbcType="VARCHAR"/>
+        <result column="shenhestatus" property="shenhestatus" jdbcType="INTEGER"/>
+        <result column="zhifubao" property="zhifubao" jdbcType="VARCHAR"/>
+        <result column="cmoney" property="cmoney" jdbcType="DOUBLE"/>
+        <result column="invit_time" property="invitTime" jdbcType="INTEGER"/>
+        <result column="google_id" property="googleId" jdbcType="INTEGER"/>
+        <result column="invit" property="invit" jdbcType="INTEGER"/>
+        <result column="trade_super" property="tradeSuper" jdbcType="INTEGER"/>
+        <result column="is_system" property="isSystem" jdbcType="TINYINT"/>
+        <result column="is_blackname" property="isBlackName" jdbcType="INTEGER"/>
+        <result column="nationality" property="nationality" jdbcType="VARCHAR"/>
+        <result column="nationality_code" property="nationalityCode" jdbcType="VARCHAR"/>
+        <result column="user_level" property="userLevel" jdbcType="INTEGER"/>
+        <result column="isblacklist" property="isblacklist" jdbcType="INTEGER"/>
+        <result column="invit_count" property="invitCount" jdbcType="DOUBLE"/>
+        <result column="user_vip_type" property="userVipType" jdbcType="INTEGER"/>
+        <result column="is_acceptance" property="isAcceptance" jdbcType="INTEGER"/>
+        <result column="referrals_num" property="referralsNum" jdbcType="INTEGER"/>
+        <result column="invite_code" property="inviteCode" jdbcType="VARCHAR"/>
+        <result column="is_bigcustmer" property="isBigcustmer" jdbcType="INTEGER"/>
+        <result column="is_project" property="isProject" jdbcType="INTEGER"/>
+        <result column="fiat_money_pwd" property="fiatMoneyPwd"/>
+        <result column="profile" property="profile" jdbcType="LONGVARCHAR"/>
+         <result column="pinvite_code" property="pInviteCode" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="assets" resultType="java.lang.Integer" statementType="CALLABLE">
+
+    <![CDATA[
+
+
+
+                         call assets_one2one(
+
+                        #{memberId,mode=IN,jdbcType=INTEGER},#{cyId,mode=IN,jdbcType=VARCHAR},#{num,mode=IN,jdbcType=DECIMAL}, #{numOptions,mode=IN,jdbcType=VARCHAR},
+                        #{forzen,mode=IN,jdbcType=DECIMAL},#{forzenOptions,mode=IN,jdbcType=NUMERIC},
+
+                        #{memberId1,mode=IN,jdbcType=INTEGER},#{cyId1,mode=IN,jdbcType=VARCHAR},#{num1,mode=IN,jdbcType=DECIMAL}, #{numOptions1,mode=IN,jdbcType=VARCHAR},
+                        #{forzen1,mode=IN,jdbcType=DECIMAL},#{forzenOptions1,mode=IN,jdbcType=NUMERIC},
+
+                        #{memberId2,mode=IN,jdbcType=INTEGER},#{cyId2,mode=IN,jdbcType=VARCHAR},#{num2,mode=IN,jdbcType=DECIMAL}, #{numOptions2,mode=IN,jdbcType=VARCHAR},
+                        #{forzen2,mode=IN,jdbcType=DECIMAL},#{forzenOptions2,mode=IN,jdbcType=NUMERIC},
+
+                        #{memberId3,mode=IN,jdbcType=INTEGER},#{cyId3,mode=IN,jdbcType=VARCHAR},#{num3,mode=IN,jdbcType=DECIMAL}, #{numOptions3,mode=IN,jdbcType=VARCHAR},
+                        #{forzen3,mode=IN,jdbcType=DECIMAL},#{forzenOptions3,mode=IN,jdbcType=NUMERIC},
+
+                        #{memberId4,mode=IN,jdbcType=INTEGER},#{cyId4,mode=IN,jdbcType=VARCHAR},#{num4,mode=IN,jdbcType=DECIMAL}, #{numOptions4,mode=IN,jdbcType=VARCHAR},
+                        #{forzen4,mode=IN,jdbcType=DECIMAL},#{forzenOptions4,mode=IN,jdbcType=NUMERIC}
+
+                      );
+
+
+
+        ]]>
+
+
+  </select>
+
+
+    <select id="platFormCurrencyLock" parameterType="net.cyweb.model.YangFtLock" resultType="java.lang.Integer"
+            statementType="CALLABLE">
+
+    <![CDATA[
+
+
+
+                         call lock_in(
+                            #{memberId,mode=IN,jdbcType=INTEGER},#{num,mode=IN,jdbcType=DECIMAL}
+                        );
+
+
+
+        ]]>
+
+  </select>
+
+    <select id="platFormCurrencyUnLock" parameterType="net.cyweb.model.YangFtLock" resultType="java.lang.Integer"
+            statementType="CALLABLE">
+
+    <![CDATA[
+
+
+
+                         call lock_out(
+                        #{memberId,mode=IN,jdbcType=INTEGER},#{num,mode=IN,jdbcType=DECIMAL}
+                      );
+
+
+
+        ]]>
+
+
+  </select>
+
+    <update id="updateByInviteCode">
+    update yang_member set  referrals_num = (referrals_num+1) where
+    <if test="inviteCode!=null and inviteCode!=''">
+    invite_code = #{inviteCode}
+    </if>
+  </update>
+
+    <update id="updateYangmember">
+        update yang_member
+        <set>
+            <if test="loginIp!=null and loginIp!=''">
+                login_ip = (#{loginIp}),
+            </if>
+            <if test="loginTime!=null and loginTime!=''">
+                login_time = #{loginTime}
+            </if>
+        </set>
+        <where>
+            <if test="memberId!=null and memberId!=''">
+                member_id = #{memberId}
+            </if>
+        </where>
+    </update>
+
+    <select id="getMemberByEmail" resultType="java.util.Map">
+        select member_id as memberId from yang_member
+        <where>
+        <if test="loginUserName!=null and loginUserName!=''">
+            email = #{loginUserName}
+        </if>
+        </where>
+    </select>
+
+    <select id="getMemberByPhone" resultType="java.util.Map">
+        select member_id as memberId from yang_member
+        <where>
+        <if test="loginUserName!=null and loginUserName!=''">
+            email = #{loginUserName}
+        </if>
+        </where>
+    </select>
+    <update id="resetPwdByEmail">
+        update yang_member set pwd = #{pwd}
+        <where>
+        <if test="email!=null and email!=''">
+            email = #{email}
+        </if>
+        </where>
+    </update>
+    <update id="resetPwdByPhone">
+        update yang_member set pwd = #{pwd}
+        <where>
+        <if test="phone!=null and phone!=''">
+            phone = #{phone}
+        </if>
+        </where>
+    </update>
+    <select id="checkAccount" resultType="net.cyweb.model.YangMember">
+        select * from yang_member
+        <where>
+            <if test="email != null and email != ''">
+                email = #{email}
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone}
+            </if>
+        </where>
+    </select>
+    <update id="changePwd">
+        update yang_member set pwd = #{pwd}
+        <where>
+        <if test="memberId！=null and memberId!=''">
+            member_id = #{memberId}
+        </if>
+        </where>
+    </update>
+    <update id="findMemberPwdByEmail">
+        update yang_member
+        <set>
+            <if test='pwd != null and pwd != "" '>
+                pwd = #{pwd}
+            </if>
+        </set>
+        <where>
+            <if test='email != null and email != "" '>
+                email = #{email}
+            </if>
+        </where>
+    </update>
+    <update id="findMemberPwdByPhone">
+        update yang_member
+        <set>
+            <if test='pwd != null and pwd != "" '>
+                pwd = #{pwd}
+            </if>
+        </set>
+        <where>
+            <if test='phone != null and phone != "" '>
+                phone = #{phone}
+            </if>
+        </where>
+    </update>
+    <update id="resetPasswordByEmail">
+        update yang_member
+        <set>
+            <if test='pwd != null and pwd != "" '>
+                pwd = #{pwd}
+            </if>
+        </set>
+        <where>
+            <if test='email != null and email != "" '>
+                email = #{email}
+            </if>
+        </where>
+    </update>
+    <update id="resetPasswordByPhone">
+        update yang_member
+        <set>
+            <if test='pwd != null and pwd != "" '>
+                pwd = #{pwd}
+            </if>
+        </set>
+        <where>
+            <if test='phone != null and phone != "" '>
+                phone = #{phone}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateMemberCertification" parameterType="net.cyweb.model.YangMember">
+        update yang_member
+        <set>
+            <if test="cardtype != null and cardtype != ''">
+                cardtype = #{cardtype},
+            </if>
+            <if test="idcard != null and idcard != ''">
+                idcard = #{idcard},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="pic1 != null and pic1 != ''">
+                pic1 = #{pic1},
+            </if>
+            <if test="pic2 != null and pic2 != ''">
+                pic2 = #{pic2},
+            </if>
+            <if test="pic3 != null and pic3 != ''">
+                pic3 = #{pic3}
+            </if>
+        </set>
+        where
+        <if test="memberId!=null and memberId!=''">
+            member_id = #{memberId}
+        </if>
+    </update>
+
+
+   <!-- <select id="getAddress" resultType="net.cyweb.model.YangQianBaoAddress">
+  select id ,user_id userId,name,qianbao_url qianbaoUrl ,status ,add_time addTime,currency_id currencyId
+  from yang_qianbao_address
+  where user_id = #{userId} and currency_id = #{currencyId}
+  </select>-->
+
+    <update id="setFiatMoneyPwd">
+        update yang_member
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd = #{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='memberId != null and memberId != "" '>
+                member_id = #{memberId}
+            </if>
+        </where>
+    </update>
+
+    <update id="findFiatMoneyPwd">
+        update yang_member
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd = #{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='id != null and id != "" '>
+                member_id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="getAddress" resultType="net.cyweb.model.YangQianBaoAddress">
+  select id ,user_id userId,name,qianbao_url qianbaoUrl ,status ,add_time addTime,currency_id currencyId
+  from yang_qianbao_address
+  where user_id = #{userId} and currency_id = #{currencyId}
+  </select>
+
+    <!-- 根据用户id显示用户的信息-->
+    <select id="getUserInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		    *
+		FROM
+			yang_member
+		WHERE
+			member_id=#{memberId}
+	</select>
+    <!--设置资金密码-->
+    <update id="setsFiatMoneyPwd">
+        update yang_member
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd = #{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='memberId != null and memberId != "" '>
+                member_id = #{memberId}
+            </if>
+        </where>
+    </update>
+    <!-- 更新资金密码-->
+    <update id="updateFiatMoneyPwd">
+        update yang_member
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd = #{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='memberId != null and memberId != "" '>
+                member_id = #{memberId}
+            </if>
+        </where>
+    </update>
+    <!-- 根据邮箱找到资金密码-->
+    <select id="getFiatMoneyPwdByEmail" resultType="java.util.Map">
+        select fiat_money_pwd as fiatMoneyPwd from yang_member
+        <where>
+            <if test='email != null and email != "" '>
+                email = #{loginUserName}
+            </if>
+        </where>
+    </select>
+    <!-- 根据电话找到资金密码-->
+    <select id="getFiatMoneyPwdByPhone" resultType="java.util.Map">
+        select fiat_money_pwd as fiatMoneyPwd from yang_member
+        <where>
+            <if test='phone != null and phone != "" '>
+                phone = #{loginUserName}
+            </if>
+        </where>
+    </select>
+    <update id="resetFiatMoneyPwdByEmail">
+        update yang_member set
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd = #{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='email != null and email != "" '>
+                email = #{email}
+            </if>
+        </where>
+    </update>
+
+    <update id="resetFiatMoneyPwdByPhone">
+        update yang_member
+        <set>
+            <if test="fiatMoneyPwd != null and fiatMoneyPwd != ''">
+                fiat_money_pwd=#{fiatMoneyPwd}
+            </if>
+        </set>
+        <where>
+            <if test='phone != null and phone != "" '>
+                phone = #{phone}
+            </if>
+        </where>
+    </update>
+    <!--通过email查找用户的信息-->
+    <select id="getMemberIdByEmail" resultMap="BaseResultMap">
+        select member_id as memberId from yang_member
+        <where>
+            <if test='email != null and email != "" '>
+                email = #{email}
+            </if>
+        </where>
+    </select>
+    <!--通过phone查找用户的信息-->
+    <select id="getMemberIdByPhone" resultMap="BaseResultMap">
+        select member_id as memberId from yang_member
+        <where>
+            <if test="phone != null and phone != ''">
+                phone = #{phone}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+server:
+  port: 8002
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: user-server
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: Wang628625
+    port: 6379
+    timeout: 3000
+    pool:
+      max-idle: 500
+      min-idle: 50
+      max-active: 2000
+      max-wait : 1000
+logging:
+  config: classpath:conf/log4j2.xml
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: net.cyweb.model
+mapper:
+  before: true
+  mappers: net.cyweb.config.mybatis.TkMapper
+  uuid: select replace(uuid(),'-','')
+  identity: MYSQL
+  not-empty: false
+  safe-update: true
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+druid:
+#  url: jdbc:mysql://192.168.31.14:3306/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+  url: jdbc:mysql://127.0.0.1:3307/funcoin_new?useUnicode=true&amp;characterEncoding=utf-8
+  driver: com.mysql.jdbc.Driver
+  username: root
+  password: wang628625
+  initial-size: 5
+  max-active: 20
+  test-on-borrow: true
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    port: 8001
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+feign:
+  hystrix:
+    enabled: false

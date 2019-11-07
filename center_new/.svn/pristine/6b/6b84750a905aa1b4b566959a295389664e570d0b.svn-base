@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangMemberMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangMember" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="pwdtrade" property="pwdtrade" jdbcType="VARCHAR" />
+    <result column="nick" property="nick" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cardtype" property="cardtype" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" javaType="long" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="login_time" property="loginTime" jdbcType="INTEGER" />
+    <result column="vip_level" property="vipLevel" jdbcType="INTEGER" />
+    <result column="vip_end_time" property="vipEndTime" jdbcType="INTEGER" />
+    <result column="rmb" property="rmb" jdbcType="DECIMAL" />
+    <result column="forzen_rmb" property="forzenRmb" jdbcType="DECIMAL" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="dividend_num" property="dividendNum" jdbcType="DECIMAL" />
+    <result column="threepwd" property="threepwd" jdbcType="VARCHAR" />
+    <result column="typepwd1" property="typepwd1" jdbcType="INTEGER" />
+    <result column="typepwd2" property="typepwd2" jdbcType="INTEGER" />
+    <result column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="phone1" property="phone1" jdbcType="VARCHAR" />
+    <result column="safe_time" property="safeTime" jdbcType="VARCHAR" />
+    <result column="qqopenid" property="qqopenid" jdbcType="VARCHAR" />
+    <result column="pic1" property="pic1" jdbcType="VARCHAR" />
+    <result column="pic2" property="pic2" jdbcType="VARCHAR" />
+    <result column="pic3" property="pic3" jdbcType="VARCHAR" />
+    <result column="shenhestatus" property="shenhestatus" jdbcType="INTEGER" />
+    <result column="zhifubao" property="zhifubao" jdbcType="VARCHAR" />
+    <result column="cmoney" property="cmoney" jdbcType="DOUBLE" />
+    <result column="invit_time" property="invitTime" jdbcType="INTEGER" />
+    <result column="google_id" property="googleId" jdbcType="INTEGER" />
+    <result column="invit" property="invit" jdbcType="INTEGER" />
+    <result column="trade_super" property="tradeSuper" jdbcType="INTEGER" />
+    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+  <select id="assets"  statementType="CALLABLE" resultType="java.lang.Integer">
+
+     <![CDATA[
+
+         call assets_one2one(
+
+        #{memberId,mode=IN,jdbcType=INTEGER},#{cyId,mode=IN,jdbcType=VARCHAR},#{num,mode=IN,jdbcType=DECIMAL}, #{numOptions,mode=IN,jdbcType=VARCHAR},
+        #{forzen,mode=IN,jdbcType=DECIMAL},#{forzenOptions,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId1,mode=IN,jdbcType=INTEGER},#{cyId1,mode=IN,jdbcType=VARCHAR},#{num1,mode=IN,jdbcType=DECIMAL}, #{numOptions1,mode=IN,jdbcType=VARCHAR},
+        #{forzen1,mode=IN,jdbcType=DECIMAL},#{forzenOptions1,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId2,mode=IN,jdbcType=INTEGER},#{cyId2,mode=IN,jdbcType=VARCHAR},#{num2,mode=IN,jdbcType=DECIMAL}, #{numOptions2,mode=IN,jdbcType=VARCHAR},
+        #{forzen2,mode=IN,jdbcType=DECIMAL},#{forzenOptions2,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId3,mode=IN,jdbcType=INTEGER},#{cyId3,mode=IN,jdbcType=VARCHAR},#{num3,mode=IN,jdbcType=DECIMAL}, #{numOptions3,mode=IN,jdbcType=VARCHAR},
+        #{forzen3,mode=IN,jdbcType=DECIMAL},#{forzenOptions3,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId4,mode=IN,jdbcType=INTEGER},#{cyId4,mode=IN,jdbcType=VARCHAR},#{num4,mode=IN,jdbcType=DECIMAL}, #{numOptions4,mode=IN,jdbcType=VARCHAR},
+        #{forzen4,mode=IN,jdbcType=DECIMAL},#{forzenOptions4,mode=IN,jdbcType=NUMERIC}
+
+      );
+
+      ]]>
+
+
+  </select>
+
+  <select id="orderConfirm"  statementType="CALLABLE" resultType="java.lang.Integer">
+
+    <![CDATA[
+
+         call orderConfirm(
+
+        #{memberId,mode=IN,jdbcType=INTEGER},#{cyId,mode=IN,jdbcType=VARCHAR},#{num,mode=IN,jdbcType=DECIMAL}, #{numOptions,mode=IN,jdbcType=VARCHAR},
+        #{forzen,mode=IN,jdbcType=DECIMAL},#{forzenOptions,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId1,mode=IN,jdbcType=INTEGER},#{cyId1,mode=IN,jdbcType=VARCHAR},#{num1,mode=IN,jdbcType=DECIMAL}, #{numOptions1,mode=IN,jdbcType=VARCHAR},
+        #{forzen1,mode=IN,jdbcType=DECIMAL},#{forzenOptions1,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId2,mode=IN,jdbcType=INTEGER},#{cyId2,mode=IN,jdbcType=VARCHAR},#{num2,mode=IN,jdbcType=DECIMAL}, #{numOptions2,mode=IN,jdbcType=VARCHAR},
+        #{forzen2,mode=IN,jdbcType=DECIMAL},#{forzenOptions2,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId3,mode=IN,jdbcType=INTEGER},#{cyId3,mode=IN,jdbcType=VARCHAR},#{num3,mode=IN,jdbcType=DECIMAL}, #{numOptions3,mode=IN,jdbcType=VARCHAR},
+        #{forzen3,mode=IN,jdbcType=DECIMAL},#{forzenOptions3,mode=IN,jdbcType=NUMERIC},
+
+        #{memberId4,mode=IN,jdbcType=INTEGER},#{cyId4,mode=IN,jdbcType=VARCHAR},#{num4,mode=IN,jdbcType=DECIMAL}, #{numOptions4,mode=IN,jdbcType=VARCHAR},
+        #{forzen4,mode=IN,jdbcType=DECIMAL},#{forzenOptions4,mode=IN,jdbcType=NUMERIC},
+
+
+
+        #{orderId1,mode=IN,jdbcType=INTEGER} ,#{tradeNum1,mode=IN,jdbcType=VARCHAR}, #{tradeTime1},
+        #{orderId2,mode=IN,jdbcType=INTEGER}, #{tradeNum2,mode=IN,jdbcType=VARCHAR},  #{tradeTime2},
+
+
+
+
+        #{tradeNo1},#{t_memberId1},#{t_currencyId1},#{currencyTradeId1},#{price1},#{t_num1},#{t_money1},#{fee1},#{t_type1},#{t_addTime1},#{t_status1},#{show1},#{t_orders_id1},
+
+        #{tradeNo2},#{t_memberId2},#{t_currencyId2},#{currencyTradeId2},#{price2},#{t_num2},#{t_money2},#{fee2},#{t_type2},#{t_addTime2},#{t_status2},#{show2},#{t_orders_id2},
+
+
+
+        #{f_memberId1},#{f_type1},#{f_moneyType1},#{f_money1},#{f_addTime1},#{f_currencyId1},#{f_ip1},#{f_content1},
+
+        #{f_memberId2},#{f_type2},#{f_moneyType2},#{f_money2},#{f_addTime2},#{f_currencyId2},#{f_ip2},#{f_content2}
+
+
+      );
+
+      ]]>
+
+
+  </select>
+
+
+  
+  
+</mapper>

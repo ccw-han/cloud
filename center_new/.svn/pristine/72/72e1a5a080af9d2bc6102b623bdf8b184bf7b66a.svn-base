@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangOrdersMapper">
+    <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrders">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="orders_id" property="ordersId" jdbcType="INTEGER"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="currency_id" property="currencyId" jdbcType="INTEGER"/>
+        <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="num" property="num" jdbcType="DECIMAL"/>
+        <result column="trade_num" property="tradeNum" jdbcType="DECIMAL"/>
+        <result column="fee" property="fee" jdbcType="DECIMAL"/>
+        <result column="`type`" property="type" jdbcType="VARCHAR"/>
+        <result column="add_time" property="addTime" jdbcType="INTEGER"/>
+        <result column="trade_time" property="tradeTime" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="is_shua" property="isShua" jdbcType="TINYINT"/>
+        <result column="hasDo" property="hasDo" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <sql id="fieldsUser">
+    a.orders_id as ordersId, a.member_id as memberId, a.currency_id as currencyId,
+     a.currency_trade_id as currencyTradeId, a.price, a.num, a.trade_num as tradeNum, a.fee, a.`type`,
+     a.add_time as addTime, a.trade_time as tradeTime,
+     a.status, a.is_shua as isShua, a.hasDo
+  </sql>
+    <select id="getOrderByfields" resultType="java.util.Map">
+
+
+        select * from yang_orders
+        <where>
+            <if test=" currency_id!= '' and currency_id != null ">
+
+                and currency_id = #{currency_id}
+
+            </if>
+
+            <if test=" currency_trade_id!= '' and currency_trade_id != null ">
+
+                and currency_trade_id = #{currency_trade_id}
+
+            </if>
+
+            <if test=" type!= '' and type != null ">
+
+                and type = #{type}
+
+            </if>
+
+
+            <if test=" orders_id!= '' and orders_id != null ">
+
+                and orders_id  &lt;= #{orders_id}
+
+            </if>
+
+            and (status = 0 or status = 1)
+
+        </where>
+
+  </select>
+
+
+  <select id="fontUserTradeFiveRecord" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle
+    from yang_orders a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    <where>
+        <if test="currencyId!=null and currencyId!=''">
+            and a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+        </if>
+        <if test="memberId!=null and memberId!=''">
+            and a.member_id=#{memberId}
+        </if>
+        and a.status in (0,1)
+    </where>
+    order by a.add_time desc
+
+  </select>
+
+    <select id="cancelOrder" statementType="CALLABLE" resultType="java.lang.Integer">
+		<![CDATA[
+         call cancel_order(#{order_id_in,mode=IN,jdbcType=INTEGER});
+      ]]>
+	</select>
+
+
+
+  <select id="myFontOrders" resultType="java.util.Map" parameterType="java.util.Map">
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle,
+    d.input_price_num as input_price_num,d.show_num as show_num,d.all_money_num as all_money_num
+    from yang_orders a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    inner join yang_currency_pair d on a.currency_id =d.currency_id and a.currency_trade_id=d.currency_trade_id
+    <where>
+      <if test="currencyId!=null and currencyId!=''">
+      and  a.currency_id=#{currencyId}
+      </if>
+      <if test="currencyTradeId!=null and currencyTradeId!=''">
+        and  a.currency_trade_id=#{currencyTradeId}
+      </if>
+      <if test="beginTime!=null and beginTime!=''">
+      and a.add_time &gt;=#{beginTime}
+      </if>
+      <if test="endTime!=null and endTime!=''">
+      and a.add_time &lt;=#{endTime}
+      </if>
+      and a.member_id=#{memberId}
+      and a.status in (0,1) and a.hasDo=1
+    </where>
+    order by a.add_time desc
+    limit #{start},#{end}
+  </select>
+
+  <select id="myFontOrdersCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+   select count(1) as total from (
+
+    select
+    <include refid="fieldsUser"/>,
+    b.currency_mark as currencyMark,c.title as currencyTitle,
+    d.input_price_num as input_price_num,d.show_num as show_num,d.all_money_num as all_money_num
+    from yang_orders a
+    inner join yang_currency b on b.currency_id=a.currency_id
+    inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+    inner join yang_currency_pair d on a.currency_id =d.currency_id and a.currency_trade_id=d.currency_trade_id
+    <where>
+      <if test="currencyId!=null and currencyId!=''">
+        and  a.currency_id=#{currencyId}
+      </if>
+      <if test="currencyTradeId!=null and currencyTradeId!=''">
+        and  a.currency_trade_id=#{currencyTradeId}
+      </if>
+      <if test="beginTime!=null and beginTime!=''">
+        and a.add_time &gt;=#{beginTime}
+      </if>
+      <if test="endTime!=null and endTime!=''">
+        and a.add_time &lt;=#{endTime}
+      </if>
+      and a.member_id=#{memberId}
+      and a.status in (0,1) and a.hasDo=1
+    </where>
+    ) f
+  </select>
+
+  <select id="cancel_order"  statementType="CALLABLE" resultType="java.lang.Integer">
+
+    <![CDATA[
+
+         call cancel_order(
+
+        #{order_id_in,mode=IN,jdbcType=INTEGER}
+
+      );
+
+      ]]>
+
+  </select>
+
+  <select id="dealOrder" statementType="CALLABLE" resultType="java.util.Map">
+		<![CDATA[
+         call deal_order(
+        #{memberId,mode=IN,jdbcType=INTEGER},#{cyId,mode=IN,jdbcType=VARCHAR},#{num,mode=IN,jdbcType=DECIMAL}, #{numOptions,mode=IN,jdbcType=VARCHAR},
+        #{forzen,mode=IN,jdbcType=DECIMAL},#{forzenOptions,mode=IN,jdbcType=NUMERIC},#{trade_orders_id,mode=IN,jdbcType=INTEGER},
+        #{memberId1,mode=IN,jdbcType=INTEGER},#{cyId1,mode=IN,jdbcType=VARCHAR},#{num1,mode=IN,jdbcType=DECIMAL}, #{numOptions1,mode=IN,jdbcType=VARCHAR},
+        #{forzen1,mode=IN,jdbcType=DECIMAL},#{forzenOptions1,mode=IN,jdbcType=NUMERIC},#{trade_orders_id1,mode=IN,jdbcType=INTEGER},
+        #{memberId2,mode=IN,jdbcType=INTEGER},#{cyId2,mode=IN,jdbcType=VARCHAR},#{num2,mode=IN,jdbcType=DECIMAL}, #{numOptions2,mode=IN,jdbcType=VARCHAR},
+        #{forzen2,mode=IN,jdbcType=DECIMAL},#{forzenOptions2,mode=IN,jdbcType=NUMERIC},#{trade_orders_id2,mode=IN,jdbcType=INTEGER},
+        #{memberId3,mode=IN,jdbcType=INTEGER},#{cyId3,mode=IN,jdbcType=VARCHAR},#{num3,mode=IN,jdbcType=DECIMAL}, #{numOptions3,mode=IN,jdbcType=VARCHAR},
+        #{forzen3,mode=IN,jdbcType=DECIMAL},#{forzenOptions3,mode=IN,jdbcType=NUMERIC},#{trade_orders_id3,mode=IN,jdbcType=INTEGER},
+
+        #{memberId4,mode=IN,jdbcType=INTEGER},#{cyId4,mode=IN,jdbcType=VARCHAR},#{num4,mode=IN,jdbcType=DECIMAL}, #{numOptions4,mode=IN,jdbcType=VARCHAR},
+        #{forzen4,mode=IN,jdbcType=DECIMAL},#{forzenOptions4,mode=IN,jdbcType=NUMERIC},#{trade_orders_id4,mode=IN,jdbcType=INTEGER},
+
+        #{orderId1,mode=IN,jdbcType=INTEGER} ,#{tradeNum1,mode=IN,jdbcType=VARCHAR}, #{tradeTime1},
+        #{orderId2,mode=IN,jdbcType=INTEGER}, #{tradeNum2,mode=IN,jdbcType=VARCHAR},  #{tradeTime2},
+
+        #{tradeNo1},#{t_memberId1},#{t_currencyId1},#{currencyTradeId1},#{price1},#{t_num1},#{t_money1},#{fee1},#{t_type1},#{t_addTime1},#{t_status1},#{show1},#{t_orders_id1},
+        #{tradeNo2},#{t_memberId2},#{t_currencyId2},#{currencyTradeId2},#{price2},#{t_num2},#{t_money2},#{fee2},#{t_type2},#{t_addTime2},#{t_status2},#{show2},#{t_orders_id2},
+
+        #{f_memberId1},#{f_type1},#{f_moneyType1},#{f_money1},#{f_addTime1},#{f_currencyId1},#{f_ip1},#{f_content1},
+        #{f_memberId2},#{f_type2},#{f_moneyType2},#{f_money2},#{f_addTime2},#{f_currencyId2},#{f_ip2},#{f_content2},
+
+         #{order_id_in,mode=IN,jdbcType=INTEGER},
+         #{dealType,mode=IN,jdbcType=INTEGER}
+         );
+
+
+        ]]>
+	</select>
+
+    <select id="getOrdersByMemberId" parameterType="java.lang.Integer" resultType="java.util.Map">
+    select a.orders_id ordersId,a.member_id memberId,b.currency_mark currencyMark,
+    c.currency_mark currencyMarkTrade,a.price price,a.num num,a.trade_num tradeNum,
+    a.fee fee,a.type type, a.add_time addTime,a.trade_time tradeTime,a.status status,
+    a.is_shua isShua,a.hasDo hasDo,a.currency_id currencyId,a.currency_trade_id currencyTradeId
+    from yang_orders a
+    LEFT JOIN yang_currency b
+    ON a.currency_id = b.currency_id
+    LEFT JOIN yang_currency c
+    ON a.currency_trade_id = c.currency_id
+    <where>
+        and a.member_id = #{id} and a.status = 0
+    </where>
+
+  </select>
+
+    <select id="getHistoryOrdersByMemberId" parameterType="java.lang.Integer" resultType="java.util.Map">
+     select a.orders_id ordersId,a.member_id memberId,b.currency_mark currencyMark,
+    c.currency_mark currencyMarkTrade,a.price price,a.num num,a.trade_num tradeNum,
+    a.fee fee,a.type type, a.add_time addTime,a.trade_time tradeTime,a.status status,
+    a.is_shua isShua,a.hasDo hasDo,a.currency_id currencyId,a.currency_trade_id currencyTradeId
+    from yang_orders a
+    LEFT JOIN yang_currency b
+    ON a.currency_id = b.currency_id
+    LEFT JOIN yang_currency c
+    ON a.currency_trade_id = c.currency_id
+    <where>
+        and a.member_id = #{id} and a.status != 0
+    </where>
+
+  </select>
+
+    <select id="getUserOrderFiveRecordBuy" resultType="java.util.Map">
+    SELECT price ,sum(num) num
+    from
+    yang_orders
+    <where>
+        and type = 'buy'
+    </where>
+    group by price ORDER BY price DESC limit 5
+  </select>
+
+    <select id="getUserOrderFiveRecordSell" resultType="java.util.Map">
+        SELECT price ,sum(num) num
+        from
+        yang_orders
+        <where>
+            and type = 'sell'
+        </where>
+        group by price ORDER BY price ASC limit 5
+
+    </select>
+    <select id="getOrdersByCid" parameterType="java.lang.String" resultType="java.util.Map">
+    select * from yang_orders
+    <where>
+        and currency_id = #{currencyId} and currency_trade_id = #{currencyTradeId}
+    </where>
+  </select>
+
+    <select id="getUserOrderFiveRecordByTwoParam" resultMap="BaseResultMap">
+        SELECT ord.* ,curr.currency_mark currencyMark,curr.currency_content currencyTitle
+        from
+        yang_orders ord
+        left JOIN yang_currency curr
+        ON ord.currency_id = curr.currency_id
+        <where>
+            <if test='currencyId != "" and currencyId != null'>
+                AND ord.currency_id = #{currencyId}
+            </if>
+            <if test='currencyTradeId != "" and currencyTradeId != null'>
+                AND ord.currency_trade_id = #{currencyTradeId}
+            </if>
+
+        </where>
+        ORDER BY price DESC limit 5
+    </select>
+    <select id="fontUserTradeFiveRecords" resultMap="BaseResultMap" parameterType="net.cyweb.model.YangOrders"
+            useCache="false" flushCache="true">
+        select
+        <include refid="fieldsUser"/>,
+        b.currency_mark as currencyMark,c.title as currencyTitle
+        from yang_orders a
+        inner join yang_currency b on b.currency_id=a.currency_id
+        inner join yang_currency_market c on c.currencyid=a.currency_trade_id
+        <where>
+            and a.currency_id=#{currencyId} and a.currency_trade_id=#{currencyTradeId}
+            and a.member_id=#{memberId}
+            and a.status in (0,1)
+        </where>
+        order by a.add_time desc
+    </select>
+
+</mapper>
+
+

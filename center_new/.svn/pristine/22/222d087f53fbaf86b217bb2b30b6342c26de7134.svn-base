@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangOrdersMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangOrders" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="orders_id" property="ordersId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="num" property="num" jdbcType="DECIMAL" />
+    <result column="trade_num" property="tradeNum" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="`type`" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="trade_time" property="tradeTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_shua" property="isShua" jdbcType="TINYINT" />
+    <result column="hasDo" property="hasDo" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="fields">
+
+    orders_id,member_id,currency_id,currency_trade_id,price,num,trade_num,fee,`type`,add_time,trade_time,status,is_shua,hasDo
+
+
+  </sql>
+
+  <sql id="orderColumns">
+     a.orders_id as ordersId,
+     a.member_id as memberId,
+     a.currency_id as currencyId,
+     a.currency_trade_id as currencyTradeId,
+     a.price as price,
+     a.num as num,
+     a.trade_num as tradeNum,
+     a.fee as fee,
+     a.`type` as type,
+     a.add_time as addTime,
+     a.trade_time as tradeTime,
+     a.status as status,
+     a.is_shua as isShua,
+     a.hasDo as hasDo
+  </sql>
+
+
+
+  <select id="getOrderByfields" resultType="java.util.Map">
+
+
+     select <include refid="fields"/> from yang_orders
+    <where>
+      <if test=" currency_id!= '' and currency_id != null ">
+
+        and  currency_id = #{currency_id}
+
+      </if>
+
+      <if test=" currency_trade_id!= '' and currency_trade_id != null ">
+
+        and currency_trade_id = #{currency_trade_id}
+
+      </if>
+
+      <if test=" type!= '' and type != null ">
+
+        and type = #{type}
+
+      </if>
+
+
+      <if test=" orders_id!= '' and orders_id != null ">
+
+        and orders_id  &lt;= #{orders_id}
+
+      </if>
+
+      and (status = 0 or status = 1)
+    </where>
+
+  </select>
+
+  <select id="getOrderCollectInfos" parameterType="net.cyweb.model.YangOrders" resultType="java.util.HashMap">
+    (SELECT
+      `type`,
+      currency_id,
+      currency_trade_id,
+      concat(if(sum(num),sum(num),0),'') AS total,
+      concat(if(sum(trade_num),sum(trade_num),0),'') AS tradeNum,
+      price
+      FROM
+      yang_orders
+      <where>
+        AND currency_id = #{currencyId}
+        AND currency_trade_id = #{currencyTradeId}
+        and (status = 1 or status = 0)
+        AND type = 'buy' and hasDo =1
+      </where>
+      GROUP BY
+      currency_id,
+      currency_trade_id,
+      price
+      ORDER BY price desc
+      LIMIT 35 )
+      union
+      (SELECT
+      `type`,
+      currency_id,
+      currency_trade_id,
+      concat(if(sum(num),sum(num),0),'') AS total,
+      concat(if(sum(trade_num),sum(trade_num),0),'') AS tradeNum,
+      price
+      FROM
+      yang_orders
+      <where>
+        AND currency_id = #{currencyId}
+        AND currency_trade_id = #{currencyTradeId}
+        and (status = 1 or status = 0)
+        AND type = 'sell' and hasDo =1
+      </where>
+      GROUP BY
+      currency_id,
+      currency_trade_id,
+      price
+      ORDER BY price asc
+      LIMIT 35 )
+  </select>
+
+  <select id="findRobotList" parameterType="java.util.ArrayList" resultType="net.cyweb.model.YangOrders">
+    select
+    <include refid="orderColumns"/>
+    from yang_orders a
+    <where>
+      and a.orders_id &lt;=#{ordersId} and a.stauts in (-1,2) and a.member_id in
+      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item.robotId}
+      </foreach>
+    </where>
+    limit 1000;
+  </select>
+
+  <delete id="deleteBatch"  parameterType="java.util.List">
+    delete from yang_orders where orders_id in
+    <foreach collection="list" item="item" index="no" open="("
+             separator="," close=")">
+      #{item.ordersId}
+    </foreach>
+  </delete>
+
+  <select id="cancelOrder" statementType="CALLABLE" resultType="java.lang.Integer">
+		<![CDATA[
+         call cancel_order(#{order_id_in,mode=IN,jdbcType=INTEGER});
+      ]]>
+	</select>
+
+
+  <select id="findFinishOrderList" parameterType="java.util.ArrayList" resultType="net.cyweb.model.YangOrders">
+    select
+    <include refid="orderColumns"/>
+    from yang_orders a
+    <where>
+      and  a.status in (-1,2)
+    </where>
+    order by a.orders_id asc
+    limit 500;
+  </select>
+
+</mapper>
+
+

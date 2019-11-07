@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.cyweb.mapper.YangCurrencyPairMapper" >
+  <resultMap id="BaseResultMap" type="net.cyweb.model.YangCurrencyPair" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="cy_id" property="cyId" jdbcType="INTEGER" />
+    <result column="currency_mark" property="currencyMark" jdbcType="VARCHAR" />
+    <result column="currency_trade_id" property="currencyTradeId" jdbcType="INTEGER" />
+    <result column="currency_id" property="currencyId" jdbcType="INTEGER" />
+    <result column="currency_group" property="currencyGroup" jdbcType="INTEGER" />
+    <result column="currency_buy_fee" property="currencyBuyFee" jdbcType="DECIMAL" />
+    <result column="currency_sell_fee" property="currencySellFee" jdbcType="DECIMAL" />
+    <result column="up_time" property="upTime" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="input_price_num" property="inputPriceNum" jdbcType="INTEGER" />
+    <result column="show_num" property="showNum" jdbcType="INTEGER" />
+    <result column="all_money_num" property="allMoneyNum" jdbcType="INTEGER" />
+    <result column="rate_num" property="rateNum" jdbcType="INTEGER" />
+    <result column="min_money" property="minMoney" jdbcType="REAL" />
+    <result column="min_buy_shua" property="minBuyShua" jdbcType="VARCHAR" />
+    <result column="max_buy_shua" property="maxBuyShua" jdbcType="VARCHAR" />
+
+
+    <result column="is_chuang" property="isChuang" jdbcType="TINYINT" />
+
+    <result column="is_old" property="isOld" jdbcType="TINYINT" />
+
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+
+
+    <result column="min1" property="min1" jdbcType="REAL" />
+    <result column="max1" property="max1" jdbcType="REAL" />
+    <result column="probability1" property="probability1" jdbcType="INTEGER" />
+
+    <result column="min2" property="min2" jdbcType="REAL" />
+    <result column="max2" property="max2" jdbcType="REAL" />
+    <result column="probability2" property="probability2" jdbcType="INTEGER" />
+
+    <result column="min3" property="min3" jdbcType="REAL" />
+
+    <result column="max3" property="max3" jdbcType="REAL" />
+
+    <result column="max_price" property="maxPrice" jdbcType="DECIMAL" />
+
+    <result column="min_price" property="minPrice" jdbcType="DECIMAL" />
+
+
+    <result column="base_price" property="basePrice" jdbcType="DECIMAL" />
+
+    <result column="probability3" property="probability3" jdbcType="INTEGER" />
+
+    <result column="robotId" property="robotId" jdbcType="INTEGER" />
+
+    <result column="shuaBl" property="shuaBl" jdbcType="INTEGER" />
+
+    <result column="upOrDown" property="upOrDown" jdbcType="INTEGER" />
+
+
+
+  </resultMap>
+</mapper>

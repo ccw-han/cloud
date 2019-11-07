@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="conf/mybatis-generator.properties"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="net.cyweb.config.mybatis.TkMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="${druid.driver-class}"
+                        connectionURL="${druid.url}"
+                        userId="${druid.username}"
+                        password="${druid.password}">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="net.cyweb.model" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="net.cyweb.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table tableName="yang_collect_config">
+            <property name="rootClass" value="net.cyweb.model.BaseEntity"/>
+            <!--mysql 配置-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+            <!--<columnOverride column="update_date" jdbcType="VARCHAR" />
+            <columnOverride column="adult_edu_date" jdbcType="VARCHAR" />
+            <columnOverride column="turnover_date" jdbcType="VARCHAR" />
+            <columnOverride column="rtsj" jdbcType="VARCHAR" />
+            <columnOverride column="punlishdate" jdbcType="VARCHAR" />
+            <columnOverride column="revokeTime" jdbcType="VARCHAR" />-->
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        </table>
+    </context>
+</generatorConfiguration>

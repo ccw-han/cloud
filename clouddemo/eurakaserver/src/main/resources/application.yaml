@@ -1,0 +1,31 @@
+###服务端口号
+server:
+  port: 8100
+
+###服务名称
+spring:
+  application:
+    name: app-eureka-center
+  security:
+    basic:
+      enable: true #开启基于HTTP basic的认证
+    user: #配置用户的账号信息
+      name: zpc
+      password: 123456
+
+eureka:
+  instance:
+    #注册中心地址
+    hostname: 127.0.0.1
+  ###客户端调用地址
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8100/eureka/
+    ###是否将自己注册到Eureka服务中,因为该应用本身就是注册中心，不需要再注册自己（集群的时候为true）
+    register-with-eureka: false
+    ###是否从Eureka中获取注册信息,因为自己为注册中心,不会在该应用中的检索服务信息
+    fetch-registry: false
+#  server:
+#    enable-self-preservation: false #禁用自我保护模式
+#集群配置 2个Eureka服务进行了彼此注册互相注册
+
