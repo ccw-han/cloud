@@ -146,4 +146,9 @@ public class RemoteAccessUtils {
         String accessUrl = API + url;
         return accessUrl;
     }
+//    https://blog.csdn.net/JAVA_XCNH/article/details/83752536 fluent的封装，单纯request
+    //apache的httpclient的封装
+    //第三方的封装，okhttp
+    //urlconnection的封装
+
 }

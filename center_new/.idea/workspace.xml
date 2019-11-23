@@ -28,8 +28,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="D:\java\maven_repo\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1SEGhTezVGpbGUQ05q7f6HMkFR9" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="PropertiesComponent">
@@ -42,12 +52,12 @@
     <property name="SearchEverywhereHistoryKey" value="YangOrdersMapper&#9;FILE&#9;file://D:/center_new/front-services/javaapi/src/main/resources/mapper/YangOrdersMapper.xml" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../boot/demo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../boot" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/front-services/javaapi/src/main/java/net/cyweb/service/ServiceInteface" />
   </component>
   <component name="RecentsManager">
@@ -314,6 +324,7 @@
       <workItem from="1572820670513" duration="4283000" />
       <workItem from="1572932081129" duration="597000" />
       <workItem from="1572939431362" duration="1842000" />
+      <workItem from="1574466907594" duration="925000" />
     </task>
     <servers />
   </component>
